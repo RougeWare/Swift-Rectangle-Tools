@@ -22,6 +22,14 @@ public protocol Point2D: TwoDimensional {
     
     /// The location of the point along the Y axis
     var y: Length { get }
+    
+    
+    /// Creates a new point with the given X and Y coordinates
+    ///
+    /// - Parameters:
+    ///   - x: The X coordinate of the new point
+    ///   - y: The Y coordinate of the new point   
+    init(x: Length, y: Length)
 }
 
 

@@ -22,6 +22,14 @@ public protocol Size2D: TwoDimensional {
     
     /// The length of the size along the Y axis
     var height: Length { get }
+    
+    
+    /// Creates a new size with the given width and height
+    ///
+    /// - Parameters:
+    ///   - width:  The width of the new size
+    ///   - height: The height of the new size
+    init(width: Length, height: Length)
 }
 
 

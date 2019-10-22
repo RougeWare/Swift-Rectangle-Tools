@@ -12,11 +12,14 @@ import Foundation
 /// A two-dimensional rectangle
 public protocol Rectangle {
     
+    /// The unit in which the origin and size are defined
+    associatedtype Length
+    
     /// The unit in which the origin of the rectangle is defined
-    associatedtype Point: Point2D
+    associatedtype Point: Point2D where Point.Length == Self.Length
     
     /// The unit in which the size of the rectangle is defined
-    associatedtype Size: Size2D
+    associatedtype Size: Size2D where Size.Length == Self.Length
     
     
     
@@ -28,9 +31,17 @@ public protocol Rectangle {
     
     /// The size of the rectangle.
     ///
-    /// The size can have negative sides, which mean they extend in the opposite direction than normal, relative to
-    /// the origin.
+    /// The size can have negative side lengths, which mean they extend in the opposite direction than normal, relative
+    /// to the origin.
     var size: Size { get }
+    
+    
+    /// Creates a new rectangle of the given size at the given origin
+    ///
+    /// - Parameters:
+    ///   - origin: The location of the new rectangle's origin
+    ///   - size:   The new rectangle's size
+    init(origin: Point, size: Size)
 }
 
 
