@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MultiplicativeArithmetic",
+        "repositoryURL": "https://github.com/RougeWare/Swift-MultiplicativeArithmetic.git",
+        "state": {
+          "branch": null,
+          "revision": "719b6d1736eb8ca3ad9a2f3134b51cd2b081af31",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

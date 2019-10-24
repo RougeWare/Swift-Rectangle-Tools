@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MultiplicativeArithmetic
 
 
 
@@ -52,7 +53,12 @@ public extension Rectangle where Length: Comparable, Length: AdditiveArithmetic 
 
 
 
-public extension Rectangle where Length: FloatingPoint { // TODO: Create a Swift package for MultiplicativeArithmetic
+public extension Rectangle
+    where Length: Comparable,
+        Length: AdditiveArithmetic,
+        Length: MultiplicativeArithmetic,
+        Length: ExpressibleByIntegerLiteral
+{
     
     /// The middlemost X value in this rectangle
     @inlinable
