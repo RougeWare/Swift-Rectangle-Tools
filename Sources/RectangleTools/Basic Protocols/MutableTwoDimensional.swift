@@ -25,6 +25,7 @@ public protocol TwoDimensional {
 
 
 
+/// A mutable form of `TwoDimensional`
 public protocol MutableTwoDimensional: TwoDimensional {
     var measurementX: Length { get set }
     var measurementY: Length { get set }

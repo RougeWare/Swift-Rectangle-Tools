@@ -34,7 +34,7 @@ public protocol Point2D: TwoDimensional {
 
 
 
-/// A two-dimensional point which can bemutated
+/// A two-dimensional point which can be mutated
 public protocol MutablePoint2D: Point2D, MutableTwoDimensional {
     var x: Length { get set }
     var y: Length { get set }

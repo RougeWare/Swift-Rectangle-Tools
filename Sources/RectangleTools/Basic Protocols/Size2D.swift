@@ -34,7 +34,7 @@ public protocol Size2D: TwoDimensional {
 
 
 
-/// A two-dimensional size which can bemutated
+/// A two-dimensional size which can be mutated
 public protocol MutableSize2D: Size2D, MutableTwoDimensional {
     var width: Length { get set }
     var height: Length { get set }
