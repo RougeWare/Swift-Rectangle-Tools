@@ -12,4 +12,5 @@ import RectangleToolsTests
 
 var tests = [XCTestCaseEntry]()
 tests += RectangleToolsTests.allTests()
+tests += IntegerSizeTests.allTests()
 XCTMain(tests)
