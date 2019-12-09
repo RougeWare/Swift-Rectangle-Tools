@@ -42,3 +42,11 @@ public typealias UInt8Rect = BinaryIntegerRectangle<UInt8>
 public typealias UInt16Rect = BinaryIntegerRectangle<UInt16>
 public typealias UInt32Rect = BinaryIntegerRectangle<UInt32>
 public typealias UInt64Rect = BinaryIntegerRectangle<UInt64>
+
+
+
+// MARK: - Default conformances
+
+extension BinaryIntegerRectangle: Equatable {}
+extension BinaryIntegerRectangle: Hashable {}
+extension BinaryIntegerRectangle: Codable where Length: Codable {}
