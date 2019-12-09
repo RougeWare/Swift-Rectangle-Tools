@@ -26,6 +26,15 @@ public protocol DualTwoDimensional {
     
     /// The second key `TwoDimensional` in this object
     var secondDimensionPair: SecondDimensionPair { get }
+    
+    
+    
+    /// Creates a new dual 2D object by combining the two given 2D objects
+    ///
+    /// - Parameters:
+    ///   - firstDimensionPair:  The first of the dual 2D objects
+    ///   - secondDimensionPair: The second of the dual 2D objects
+    init(firstDimensionPair: FirstDimensionPair, secondDimensionPair: SecondDimensionPair)
 }
 
 
@@ -67,6 +76,11 @@ public extension DualTwoDimensional
 public extension DualTwoDimensional where Self: Rectangle {
     var firstDimensionPair: Point { origin }
     var secondDimensionPair: Size { size }
+    
+    
+    init(firstDimensionPair: Point, secondDimensionPair: Size) {
+        self.init(origin: firstDimensionPair, size: secondDimensionPair)
+    }
 }
 
 
