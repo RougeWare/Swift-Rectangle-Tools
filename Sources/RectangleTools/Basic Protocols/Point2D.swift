@@ -55,6 +55,11 @@ public extension Point2D {
     var measurementY: Length {
         get { y }
     }
+    
+    
+    init(measurementX: Length, measurementY: Length) {
+        self.init(x: measurementX, y: measurementY)
+    }
 }
 
 
