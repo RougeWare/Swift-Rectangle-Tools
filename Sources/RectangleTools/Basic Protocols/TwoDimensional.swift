@@ -31,3 +31,33 @@ public protocol MutableTwoDimensional: TwoDimensional {
     var measurementX: Length { get set }
     var measurementY: Length { get set }
 }
+
+
+
+// MARK: - Equatable
+
+public extension TwoDimensional
+    where
+        Self: Equatable,
+        Length: Equatable
+{
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.measurementX == rhs.measurementX
+            && lhs.measurementY == rhs.measurementY
+    }
+}
+
+
+
+// MARK: - Hashable
+
+public extension TwoDimensional
+    where
+        Self: Hashable,
+        Length: Hashable
+{
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(measurementX)
+        hasher.combine(measurementY)
+    }
+}
