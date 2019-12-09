@@ -29,6 +29,19 @@ public extension DualTwoDimensional
     }
     
     
+    /// Creates a new dual 2D object by converting the values of the given one
+    ///
+    /// - Parameter other: Another dual 2D object to convert
+    init<Other>(_ other: Other)
+        where Other: DualTwoDimensional,
+            Other.FirstDimensionPair.Length: BinaryFloatingPoint,
+            Other.SecondDimensionPair.Length: BinaryFloatingPoint
+    {
+        self.init(firstDimensionPair: .init(other.firstDimensionPair),
+                  secondDimensionPair: .init(other.secondDimensionPair))
+    }
+    
+    
     /// Attempts to create a new dual 2D object by converting the values of the given one. If that can't be done (e.g.
     /// the other's bit width is larger than this one), `nil` is returned.
     ///
@@ -80,6 +93,19 @@ public extension DualTwoDimensional
         FirstDimensionPair.Length: BinaryFloatingPoint,
         SecondDimensionPair.Length: BinaryFloatingPoint
 {
+    
+    /// Creates a new dual 2D object by converting the values of the given one
+    ///
+    /// - Parameter other: Another dual 2D object to convert
+    init<Other>(_ other: Other)
+        where Other: DualTwoDimensional,
+            Other.FirstDimensionPair.Length: BinaryInteger,
+            Other.SecondDimensionPair.Length: BinaryInteger
+    {
+        self.init(firstDimensionPair: .init(other.firstDimensionPair),
+                  secondDimensionPair: .init(other.secondDimensionPair))
+    }
+    
     
     /// Creates a new dual 2D object by converting the values of the given one
     ///

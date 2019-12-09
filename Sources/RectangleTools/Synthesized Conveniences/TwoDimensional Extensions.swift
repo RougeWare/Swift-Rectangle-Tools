@@ -17,6 +17,17 @@ public extension TwoDimensional where Length: BinaryFloatingPoint {
     /// - Parameter other: Another 2D object to convert
     init<Other>(_ other: Other)
         where Other: TwoDimensional,
+            Other.Length: BinaryInteger
+    {
+        self.init(measurementX: Length.init(other.measurementX), measurementY: Length.init(other.measurementY))
+    }
+    
+    
+    /// Creates a new 2D object by converting the values of the given one
+    ///
+    /// - Parameter other: Another 2D object to convert
+    init<Other>(_ other: Other)
+        where Other: TwoDimensional,
             Other.Length: BinaryFloatingPoint
     {
         self.init(measurementX: Length.init(other.measurementX), measurementY: Length.init(other.measurementY))
@@ -77,6 +88,17 @@ public extension TwoDimensional where Length: BinaryInteger {
             Other.Length: BinaryInteger
     {
         self.init(measurementX: .init(other.measurementX), measurementY: .init(other.measurementY))
+    }
+    
+    
+    /// Creates a new 2D object by converting the values of the given one
+    ///
+    /// - Parameter other: Another 2D object to convert
+    init<Other>(_ other: Other)
+        where Other: TwoDimensional,
+            Other.Length: BinaryFloatingPoint
+    {
+        self.init(measurementX: Length.init(other.measurementX), measurementY: Length.init(other.measurementY))
     }
     
     
