@@ -26,3 +26,11 @@ public struct DecimalSize: MutableSize2D {
         self.height = height
     }
 }
+
+
+
+// MARK: - Default conformances
+
+extension DecimalSize: Equatable {}
+extension DecimalSize: Hashable {}
+extension DecimalSize: Codable {}
