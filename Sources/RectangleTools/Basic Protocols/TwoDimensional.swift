@@ -10,7 +10,7 @@ import Foundation
 
 
 
-/// Something which can be measured using two dimensions
+/// Something which can be measured using only two dimensions
 public protocol TwoDimensional {
     
     associatedtype Length
@@ -22,6 +22,14 @@ public protocol TwoDimensional {
     
     /// The measurement in the second dimension (along the Y axis)
     var measurementY: Length { get }
+    
+    
+    /// Creates a new 2D object with the given X and Y measurements
+    ///
+    /// - Parameters:
+    ///   - measurementX: The measurement in the first dimension
+    ///   - measurementY: The measurement in the second dimension
+    init(measurementX: Length, measurementY: Length)
 }
 
 

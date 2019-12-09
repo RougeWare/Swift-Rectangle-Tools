@@ -55,6 +55,11 @@ public extension Size2D {
     var measurementY: Length {
         get { height }
     }
+    
+    
+    init(measurementX: Length, measurementY: Length) {
+        self.init(width: measurementX, height: measurementY)
+    }
 }
 
 
