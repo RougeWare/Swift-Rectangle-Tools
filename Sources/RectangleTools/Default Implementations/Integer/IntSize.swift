@@ -37,3 +37,11 @@ public typealias UInt8Size = BinaryIntegerSize<UInt8>
 public typealias UInt16Size = BinaryIntegerSize<UInt16>
 public typealias UInt32Size = BinaryIntegerSize<UInt32>
 public typealias UInt64Size = BinaryIntegerSize<UInt64>
+
+
+
+// MARK: - Default conformances
+
+extension BinaryIntegerSize: Equatable {}
+extension BinaryIntegerSize: Hashable {}
+extension BinaryIntegerSize: Codable where Length: Codable {}

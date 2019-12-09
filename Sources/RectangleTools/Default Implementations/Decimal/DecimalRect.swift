@@ -28,3 +28,11 @@ public struct DecimalRectangle: MutableRectangle {
         self.size = size
     }
 }
+
+
+
+// MARK: - Default conformances
+
+extension DecimalRectangle: Equatable {}
+extension DecimalRectangle: Hashable {}
+extension DecimalRectangle: Codable {}

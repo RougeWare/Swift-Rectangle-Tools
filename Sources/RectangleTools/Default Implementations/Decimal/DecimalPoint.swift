@@ -26,3 +26,11 @@ public struct DecimalPoint: MutablePoint2D {
         self.y = y
     }
 }
+
+
+
+// MARK: - Default conformances
+
+extension DecimalPoint: Equatable {}
+extension DecimalPoint: Hashable {}
+extension DecimalPoint: Codable {}
