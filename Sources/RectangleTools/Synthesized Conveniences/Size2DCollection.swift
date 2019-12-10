@@ -65,10 +65,21 @@ public protocol Size2DCollection: Collection, Size2D
 public struct Size2DCollectionIndex<Length: BinaryInteger> {
     
     /// The position within a row of the scanline in a Size
-    let x: Length
+    public let x: Length
     
     /// The row of a scanline in a Size
-    let y: Length
+    public let y: Length
+    
+    
+    /// Creates a new index for a `Size2D`
+    ///
+    /// - Parameters:
+    ///   - x: The position within a row of the scanline in a Size
+    ///   - y: The row of a scanline in a Size
+    public init(x: Length, y: Length) {
+        self.x = x
+        self.y = y
+    }
 }
 
 
@@ -80,6 +91,11 @@ extension Size2DCollectionIndex: Comparable {
                 && lhs.x < rhs.x
         )
     }
+}
+
+
+
+extension Size2DCollectionIndex: Point2D {
 }
 
 
