@@ -113,11 +113,16 @@ public extension Size2DCollection
     
     
     func index(after i: Index) -> Index {
-        if i.y >= lastValidIndex.y {
-            return lastValidIndex
+        if i.y > lastValidIndex.y {
+            return endIndex
         }
         else if i.x >= lastValidIndex.x {
-            return Index(x: 0, y: i.y.advanced(by: 1))
+            if i.y >= lastValidIndex.y {
+                return endIndex
+            }
+            else {
+                return Index(x: 0, y: i.y.advanced(by: 1))
+            }
         }
         else {
             return Index(x: i.x.advanced(by: 1), y: i.y)
