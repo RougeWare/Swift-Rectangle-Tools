@@ -143,3 +143,16 @@ public extension TwoDimensional where Length: BinaryInteger {
         self.init(measurementX: otherX, measurementY: otherY)
     }
 }
+
+
+
+public extension TwoDimensional where Length: ExpressibleByIntegerLiteral {
+    
+    /// An instance of this where both X and Y are `0`
+    @inlinable
+    static var zero: Self { self.init(measurementX: 0, measurementY: 0) }
+    
+    /// An instance of this where both X and Y are `1`
+    @inlinable
+    static var one: Self { self.init(measurementX: 1, measurementY: 1) }
+}
