@@ -132,6 +132,8 @@ final class IntegerSizeTests: XCTestCase {
     
     static var allTests = [
         ("testUIntSize_map2D", testUIntSize_map2D),
+        ("testUIntSize_shuffled", testUIntSize_shuffled),
+        ("testIntSize_shuffled", testIntSize_shuffled),
         ("testIntSize_map2D", testIntSize_map2D),
     ]
 }
