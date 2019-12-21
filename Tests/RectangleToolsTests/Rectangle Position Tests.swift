@@ -152,6 +152,13 @@ extension RectanglePositionTests {
     }
     
     
+    func testCenter() {
+        XCTAssertEqual(rect__0_0__4_8.center, DecimalPoint(x: 2, y: 4))
+        XCTAssertEqual(rect__1_2__3_4.center, DecimalPoint(x: 2.5, y: 4))
+        XCTAssertEqual(rect__n1_2__n3_4.center, DecimalPoint(x: -2.5, y: 4))
+    }
+    
+    
     func testMidXmidY() {
         XCTAssertEqual(rect__0_0__4_8.midXmidY, DecimalPoint(x: 2, y: 4))
         XCTAssertEqual(rect__1_2__3_4.midXmidY, DecimalPoint(x: 2.5, y: 4))
@@ -193,6 +200,7 @@ extension RectanglePositionTests {
         ("testMinXmaxY", testMinXmaxY),
         ("testMidXminY", testMidXminY),
         ("testMidXmidY", testMidXmidY),
+        ("testCenter", testCenter),
         ("testMidXmaxY", testMidXmaxY),
         ("testMaxXminY", testMaxXminY),
         ("testMaxXmidY", testMaxXmidY),
