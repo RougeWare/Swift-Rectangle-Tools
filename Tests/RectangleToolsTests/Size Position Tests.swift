@@ -50,14 +50,14 @@ final class SizePositionTests: XCTestCase {
     let size__n3_4 = DecimalSize(width: -3, height: 4)
     
     /// ```
-    ///  ↑  1  2  3
-    /// ←╆━━━━━━━━┱───→
-    /// 1┃        ┃
-    /// 2┃        ┃
-    /// 3┃        ┃
-    /// 4┡━━━━━━━━┛
-    ///  │
-    ///  ↓
+    ///   ↑  1  2  3
+    ///  ←╆━━━━━━━━┱───→
+    /// -1┃        ┃
+    /// -2┃        ┃
+    /// -3┃        ┃
+    /// -4┡━━━━━━━━┛
+    ///   │
+    ///   ↓
     /// ```
     let size__3_n4 = DecimalSize(width: 3, height: -4)
     
