@@ -57,11 +57,13 @@ final class RectanglePositionTests: XCTestCase {
     static let allTests =
           lineTests
         + pointTests
+        + relativePercentTests
+        + otherTests
 }
 
 
 
-// MARK: - Lines
+// MARK: - Edges
 
 extension RectanglePositionTests {
     
@@ -205,5 +207,118 @@ extension RectanglePositionTests {
         ("testMaxXminY", testMaxXminY),
         ("testMaxXmidY", testMaxXmidY),
         ("testMaxXmaxY", testMaxXmaxY),
+    ]
+}
+
+
+
+// MARK: - Relative/percent points
+
+extension RectanglePositionTests {
+    
+    static let uIntRect_12x12at7x11 = UIntRect(x: 7, y: 11, width: 12, height: 12)
+    static let cgRect_12x12at7x11 = CGRect(x: 7, y: 11, width: 12, height: 12)
+    static let uIntRect_13x21at5x8 = UIntRect(x: 5, y: 8, width: 13, height: 21)
+    static let cgRect_13x21at5x8 = CGRect(x: 5, y: 8, width: 13, height: 21)
+    
+    
+    func testRelativePoint() {
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.relativePoint(xPercent: 0.5, yPercent: 0.5), UIntPoint(x: 7 + 6, y: 11 + 6))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.relativePoint(xPercent: 0.5, yPercent: 0.5), CGPoint(x: 7 + 6, y: 11 + 6))
+        
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.relativePoint(xPercent: 0.5, yPercent: 0.5), UIntPoint(x: 5 + 6, y: 8 + 10))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.relativePoint(xPercent: 0.5, yPercent: 0.5), CGPoint(x: 5 + 6.5, y: 8 + 10.5))
+        
+        
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.relativePoint(xPercent: 0.25, yPercent: 0.75), UIntPoint(x: 7 + 3, y: 11 + 9))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.relativePoint(xPercent: 0.25, yPercent: 0.75), CGPoint(x: 7 + 3, y: 11 + 9))
+        
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.relativePoint(xPercent: 0.25, yPercent: 0.25), UIntPoint(x: 5 + 3, y: 8 + 5))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.relativePoint(xPercent: 0.25, yPercent: 0.25), CGPoint(x: 5 + 3.25, y: 8 + 5.25))
+        
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.relativePoint(xPercent: 0.75, yPercent: 0.75), UIntPoint(x: 5 + 9, y: 8 + 15))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.relativePoint(xPercent: 0.75, yPercent: 0.75), CGPoint(x: 5 + 9.75, y: 8 + 15.75))
+    }
+    
+    
+    func testMaxX_yPercent() {
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0   ), UIntPoint(x: 7 + 12, y: 11 + 0))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0.25), UIntPoint(x: 7 + 12, y: 11 + 3))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0.5 ), UIntPoint(x: 7 + 12, y: 11 + 6))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0.75), UIntPoint(x: 7 + 12, y: 11 + 9))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 1   ), UIntPoint(x: 7 + 12, y: 11 + 12))
+        
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0   ), UIntPoint(x: Self.uIntRect_12x12at7x11.maxX, y: 1Self.uIntRect_12x12at7x11.y))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0.25), UIntPoint(x: Self.uIntRect_12x12at7x11.maxX, y: 11 + 3))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0.5 ), UIntPoint(x: Self.uIntRect_12x12at7x11.maxX, y: 11 + 6))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 0.75), UIntPoint(x: Self.uIntRect_12x12at7x11.maxX, y: 11 + 9))
+        XCTAssertEqual(Self.uIntRect_12x12at7x11.maxX(yPercent: 1   ), UIntPoint(x: Self.uIntRect_12x12at7x11.maxX, y: 11Self.uIntRect_12x12at7x11.y))
+        
+        
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0   ), CGPoint(x: 7 + 12, y: 11 + 0))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0.25), CGPoint(x: 7 + 12, y: 11 + 3))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0.5 ), CGPoint(x: 7 + 12, y: 11 + 6))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0.75), CGPoint(x: 7 + 12, y: 11 + 9))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 1   ), CGPoint(x: 7 + 12, y: 11 + 12))
+        
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0   ), CGPoint(x: Self.cgRect_12x12at7x11.maxX, y: 1Self.cgRect_12x12at7x11.y))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0.25), CGPoint(x: Self.cgRect_12x12at7x11.maxX, y: 11 + 3))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0.5 ), CGPoint(x: Self.cgRect_12x12at7x11.maxX, y: 11 + 6))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 0.75), CGPoint(x: Self.cgRect_12x12at7x11.maxX, y: 11 + 9))
+        XCTAssertEqual(Self.cgRect_12x12at7x11.maxX(yPercent: 1   ), CGPoint(x: Self.cgRect_12x12at7x11.maxX, y: 11Self.cgRect_12x12at7x11.y))
+        
+        
+        
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0   ), UIntPoint(x: 5 + 13, y: 8 + 0))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0.25), UIntPoint(x: 5 + 13, y: 8 + 5))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0.5 ), UIntPoint(x: 5 + 13, y: 8 + 10))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0.75), UIntPoint(x: 5 + 13, y: 8 + 15))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 1   ), UIntPoint(x: 5 + 13, y: 8 + 21))
+        
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0   ), UIntPoint(x: Self.uIntRect_13x21at5x8.maxX, y: Self.uIntRect_13x21at5x8.y))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0.25), UIntPoint(x: Self.uIntRect_13x21at5x8.maxX, y: 8 + 5))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0.5 ), UIntPoint(x: Self.uIntRect_13x21at5x8.maxX, y: 8 + 10))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 0.75), UIntPoint(x: Self.uIntRect_13x21at5x8.maxX, y: 8 + 15))
+        XCTAssertEqual(Self.uIntRect_13x21at5x8.maxX(yPercent: 1   ), UIntPoint(x: Self.uIntRect_13x21at5x8.maxX, y: 8Self.uIntRect_13x21at5x8.y))
+        
+        
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0   ), CGPoint(x: 5 + 13, y: 8 + 0))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0.25), CGPoint(x: 5 + 13, y: 8 + 5.25))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0.5 ), CGPoint(x: 5 + 13, y: 8 + 10.5))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0.75), CGPoint(x: 5 + 13, y: 8 + 15.75))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 1   ), CGPoint(x: 5 + 13, y: 8 + 21))
+        
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0   ), CGPoint(x: Self.cgRect_13x21at5x8.maxX, y: Self.cgRect_13x21at5x8.y))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0.25), CGPoint(x: Self.cgRect_13x21at5x8.maxX, y: 8 + 5.25))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0.5 ), CGPoint(x: Self.cgRect_13x21at5x8.maxX, y: 8 + 10.5))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 0.75), CGPoint(x: Self.cgRect_13x21at5x8.maxX, y: 8 + 15.75))
+        XCTAssertEqual(Self.cgRect_13x21at5x8.maxX(yPercent: 1   ), CGPoint(x: Self.cgRect_13x21at5x8.maxX, y: 8Self.cgRect_13x21at5x8.y))
+    }
+    
+    
+    static let relativePercentTests = [
+        ("testRelativePoint", testRelativePoint),
+        ("testMaxX_yPercent", testMaxX_yPercent),
+    ]
+}
+
+
+
+// MARK: -
+
+extension RectanglePositionTests {
+    
+    func testWithOriginZero() {
+        XCTAssertEqual(Self.cgRect_13x21at5x8.withOriginZero, CGRect(x: 0, y: 0, width: 13, height: 21))
+        XCTAssertEqual(UIntRect(x: 5, y: 8, width: 13, height: 21).withOriginZero, UIntRect(x: 0, y: 0, width: 13, height: 21))
+        
+        XCTAssertEqual(Self.cgRect_13x21at5x8.withOriginZero, CGRect(origin: .zero, size: CGSize(width: 13, height: 21)))
+        
+        XCTAssertEqual(CGRect(x: 0, y: 0, width: 13, height: 21).withOriginZero, CGRect(x: 0, y: 0, width: 13, height: 21))
+    }
+    
+    
+    static let otherTests = [
+        ("testWithOriginZero", testWithOriginZero),
     ]
 }
