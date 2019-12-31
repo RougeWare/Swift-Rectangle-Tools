@@ -23,9 +23,12 @@ public extension Size2D {
 
 
 
-public extension Size2D where Length: Comparable, Length: AdditiveArithmetic {
-    
-    // MARK: Lines
+public extension Size2D
+    where
+        Length: Comparable,
+        Length: AdditiveArithmetic
+{
+    // MARK: Edges
     
     /// The smallest X value in this size
     @inlinable
@@ -68,12 +71,13 @@ public extension Size2D where Length: Comparable, Length: AdditiveArithmetic {
 
 
 public extension Size2D
-    where Length: Comparable,
+    where
+        Length: Comparable,
         Length: AdditiveArithmetic,
         Length: MultiplicativeArithmetic,
         Length: ExpressibleByIntegerLiteral
 {
-    // MARK: Line
+    // MARK: Edges
     
     /// The middlemost X value in this size
     @inlinable

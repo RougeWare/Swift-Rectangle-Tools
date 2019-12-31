@@ -69,7 +69,7 @@ final class SizePositionTests: XCTestCase {
 
 
 
-// MARK: - Lines
+// MARK: - Edges
 
 extension SizePositionTests {
     
