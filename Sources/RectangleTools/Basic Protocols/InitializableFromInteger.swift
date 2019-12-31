@@ -9,7 +9,10 @@ import Foundation
 
 
 
+/// Anything which can be losslessly initialized from an integer
 public protocol InitializableFromInteger {
+    
+    /// Creates a new instance based on the given integer
     init<BI>(_ integer: BI) where BI: BinaryInteger
 }
 

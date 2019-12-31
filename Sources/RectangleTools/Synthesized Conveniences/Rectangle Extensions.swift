@@ -148,7 +148,7 @@ public extension Rectangle
 
 public extension Rectangle where Self.Length: ExpressibleByIntegerLiteral {
     
-    /// Returns this rectangle placed with its origin at (0, 0)
+    /// Returns a copy of this rectangle, with its origin placed at (0, 0)
     var withOriginZero: Self {
         Self.init(origin: .zero, size: size)
     }
@@ -165,7 +165,7 @@ public extension Rectangle
     /// Finds the X coordinate which is the given percent along the X axis of this rectangle
     ///
     /// - Parameter xPercent: The percent along the X axis where the point's X coordinate should be
-    func percentAlongX(_ xPercent: Length) -> Length {
+    func percent(alongX xPercent: Length) -> Length {
         return self.minX + (self.width * xPercent)
     }
     
@@ -173,7 +173,7 @@ public extension Rectangle
     /// Finds the Y coordinate which is the given percent along the Y axis of this rectangle
     ///
     ///   - yPercent: The percent along the Y axis where the point's Y coordinate should be
-    func percentAlongY(_ yPercent: Length) -> Length {
+    func percent(alongY yPercent: Length) -> Length {
         return self.minY + (self.height * yPercent)
     }
     
@@ -184,8 +184,8 @@ public extension Rectangle
     ///   - xPercent: The percent along the X axis where the point's X coordinate should be
     ///   - yPercent: The percent along the Y axis where the point's Y coordinate should be
     func relativePoint(xPercent: Length, yPercent: Length) -> Point {
-        Point.init(x: percentAlongX(xPercent),
-                   y: percentAlongY(yPercent))
+        Point.init(x: percent(alongX: xPercent),
+                   y: percent(alongY: yPercent))
     }
     
     
@@ -194,7 +194,7 @@ public extension Rectangle
     /// - Parameter yPercent: The percent along the Y axis of the `maxX` edge where the point's Y coordinate should be
     func maxX(yPercent: Length) -> Point {
         Point.init(x: self.maxX,
-                   y: percentAlongY(yPercent))
+                   y: percent(alongY: yPercent))
     }
 
 
@@ -203,7 +203,7 @@ public extension Rectangle
     /// - Parameter yPercent: The percent along the Y axis of the `minX` edge where the point's Y coordinate should be
     func minX(yPercent: Length) -> Point {
         Point.init(x: self.minX,
-                   y: percentAlongY(yPercent))
+                   y: percent(alongY: yPercent))
     }
 
 
@@ -211,7 +211,7 @@ public extension Rectangle
     ///
     /// - Parameter xPercent: The percent along the X axis of the `maxY` edge where the point's X coordinate should be
     func maxY(xPercent: Length) -> Point {
-        Point.init(x: percentAlongX(xPercent),
+        Point.init(x: percent(alongX: xPercent),
                    y: self.maxY)
     }
 
@@ -220,7 +220,7 @@ public extension Rectangle
     ///
     /// - Parameter xPercent: The percent along the X axis of the `minY` edge where the point's X coordinate should be
     func minY(xPercent: Length) -> Point {
-        Point.init(x: percentAlongX(xPercent),
+        Point.init(x: percent(alongX: xPercent),
                    y: self.minY)
     }
 }
@@ -234,7 +234,7 @@ public extension Rectangle
     /// Finds the X coordinate which is the given percent along the X axis of this rectangle
     ///
     /// - Parameter xPercent: The percent along the X axis where the point's X coordinate should be
-    func percentAlongX<Percent>(_ xPercent: Percent) -> Length
+    func percent<Percent>(alongX xPercent: Percent) -> Length
         where Percent: BinaryFloatingPoint
     {
         return Length.init(Percent.init(self.minX) + (Percent.init(self.width) * xPercent))
@@ -244,7 +244,7 @@ public extension Rectangle
     /// Finds the Y coordinate which is the given percent along the Y axis of this rectangle
     ///
     ///   - yPercent: The percent along the Y axis where the point's Y coordinate should be
-    func percentAlongY<Percent>(_ yPercent: Percent) -> Length
+    func percent<Percent>(alongY yPercent: Percent) -> Length
         where Percent: BinaryFloatingPoint
     {
         return Length.init(Percent.init(self.minY) + (Percent.init(self.height) * yPercent))
@@ -259,8 +259,8 @@ public extension Rectangle
     func relativePoint<Percent>(xPercent: Percent, yPercent: Percent) -> Point
         where Percent: BinaryFloatingPoint
     {
-        Point.init(x: percentAlongX(xPercent),
-                   y: percentAlongY(yPercent))
+        Point.init(x: percent(alongX: xPercent),
+                   y: percent(alongY: yPercent))
     }
     
     
@@ -271,7 +271,7 @@ public extension Rectangle
         where Percent: BinaryFloatingPoint
     {
         Point.init(x: self.maxX,
-                   y: percentAlongY(yPercent))
+                   y: percent(alongY: yPercent))
     }
 
 
@@ -282,7 +282,7 @@ public extension Rectangle
         where Percent: BinaryFloatingPoint
     {
         Point.init(x: self.minX,
-                   y: percentAlongY(yPercent))
+                   y: percent(alongY: yPercent))
     }
 
 
@@ -292,7 +292,7 @@ public extension Rectangle
     func maxY<Percent>(xPercent: Percent) -> Point
         where Percent: BinaryFloatingPoint
     {
-        Point.init(x: percentAlongX(xPercent),
+        Point.init(x: percent(alongX: xPercent),
                    y: self.maxY)
     }
 
@@ -303,7 +303,7 @@ public extension Rectangle
     func minY<Percent>(xPercent: Percent) -> Point
         where Percent: BinaryFloatingPoint
     {
-        Point.init(x: percentAlongX(xPercent),
+        Point.init(x: percent(alongX: xPercent),
                    y: self.minY)
     }
 }
