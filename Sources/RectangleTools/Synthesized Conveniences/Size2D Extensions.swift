@@ -115,3 +115,27 @@ public extension Size2D
     @inlinable
     func maxXmidY<Point: Point2D>() -> Point where Point.Length == Self.Length { Point.init(x: maxX, y: midY) }
 }
+
+
+
+public extension Size2D where Length: Comparable {
+    
+    /// Returns the minimum of the two side lengths
+    @inline(__always)
+    var minSideLength: Length { minMeasurement } // TODO: Test
+    
+    /// Returns the maximum of the two side lengths
+    @inline(__always)
+    var maxSideLength: Length { maxMeasurement } // TODO: Test
+}
+
+
+
+public extension Size2D where Length: MultiplicativeArithmetic {
+    
+    /// Returns the product of multiplying both measurements
+    @inline(__always)
+    var area: Length { // TODO: Test
+        return product
+    }
+}
