@@ -13,8 +13,10 @@ public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(IntegerSizeTests.allTests),
         testCase(FractionalSizeTests.allTests),
-        testCase(SizePositionTests.allTests),
         testCase(RectanglePositionTests.allTests),
+        testCase(SizeMeasurementTests.allTests),
+        testCase(SizePositionTests.allTests),
+        testCase(TwoDimensionalMeasurementTests.allTests),
     ]
 }
 #endif

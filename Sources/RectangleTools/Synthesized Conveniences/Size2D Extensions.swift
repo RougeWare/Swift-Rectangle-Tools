@@ -115,3 +115,65 @@ public extension Size2D
     @inlinable
     func maxXmidY<Point: Point2D>() -> Point where Point.Length == Self.Length { Point.init(x: maxX, y: midY) }
 }
+
+
+
+public extension Size2D where Length: SignedNumeric, Length: Comparable {
+    
+    /// Returns the minimum of the two side lengths
+    ///
+    /// - Note: Even if one or both sides has a negative length, this will always be positive.
+    ///         If you need the negatable version, use `minMeasurement`
+    @inline(__always)
+    var minSideLength: Length { min(abs(measurementX), abs(measurementY)) }
+    
+    /// Returns the maximum of the two side lengths
+    ///
+    /// - Note: Even if one or both sides has a negative length, this will always be positive.
+    ///         If you need the negatable version, use `maxMeasurement`
+    @inline(__always)
+    var maxSideLength: Length { max(abs(measurementX), abs(measurementY)) }
+}
+
+
+
+public extension Size2D where Length: Comparable {
+    
+    /// Returns the minimum of the two side lengths
+    ///
+    /// - Note: Even if one or both sides has a negative length, this will always be positive.
+    ///         If you need the negatable version, use `minMeasurement`
+    @inline(__always)
+    var minSideLength: Length { min(measurementX, measurementY) }
+    
+    /// Returns the maximum of the two side lengths
+    ///
+    /// - Note: Even if one or both sides has a negative length, this will always be positive.
+    ///         If you need the negatable version, use `maxMeasurement`
+    @inline(__always)
+    var maxSideLength: Length { max(measurementX, measurementY) }
+}
+
+
+
+public extension Size2D where Length: SignedNumeric, Length: Comparable, Length: MultiplicativeArithmetic {
+    
+    /// Returns the product of multiplying both measurements.
+    ///
+    /// - Note: Even if one or both sides has a negative length, this will always be positive.
+    ///         If you need the negatable version, use `product`
+    @inline(__always)
+    var area: Length { abs(measurementX) * abs(measurementY) }
+}
+
+
+
+public extension Size2D where Length: MultiplicativeArithmetic {
+    
+    /// Returns the product of multiplying both measurements.
+    ///
+    /// - Note: Even if one or both sides has a negative length, this will always be positive.
+    ///         If you need the negatable version, use `product`
+    @inline(__always)
+    var area: Length { measurementX * measurementY }
+}
