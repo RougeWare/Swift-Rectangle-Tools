@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 
 
@@ -34,5 +35,7 @@ extension UInt64: InitializableFromInteger {}
 
 extension Float32: InitializableFromInteger {}
 extension Float64: InitializableFromInteger {}
+#if (arch(i386) || arch(x86_64)) && !os(Windows)
 extension Float80: InitializableFromInteger {}
+#endif
 extension CGFloat: InitializableFromInteger {}
