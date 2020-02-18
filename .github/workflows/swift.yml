@@ -14,3 +14,8 @@ jobs:
       run: swift build -v
     - name: Run tests
       run: swift test -v
+    - name: Generate iOS xcodeproj
+      run: swift package generate-xcodeproj
+    - name: Run iOS tests
+      run: xcodebuild build test -destination 'name=iPhone 11' -scheme 'RectangleTools-Package'
+
