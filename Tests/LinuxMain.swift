@@ -11,10 +11,11 @@ import XCTest
 import RectangleToolsTests
 
 var tests = [XCTestCaseEntry]()
-tests += IntegerSizeTests.allTests()
-tests += FractionalSizeTests.allTests()
-tests += RectanglePositionTests.allTests()
-tests += SizeMeasurementTests.allTests()
-tests += SizePositionTests.allTests()
-tests += TwoDimensionalMeasurementTests.allTests()
+tests += IntegerSizeTests.allTests
+tests += FractionalSizeTests.allTests
+tests += RectanglePositionTests.allTests
+tests += SizeMeasurementTests.allTests
+tests += SizePositionTests.allTests
+tests += TwoDimensionalMeasurementTests.allTests
+tests += FourSidedTests.allTests
 XCTMain(tests)
