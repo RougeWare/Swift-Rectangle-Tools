@@ -12,6 +12,7 @@ import Foundation
 
 /// Some four-sided object, where the layout of the sides is absolute. That is to say, it doesn't depend on the UI
 /// layout direction, langauge writing direction, Y axis flip, etc.
+@available(watchOS 2.1, *)
 public protocol FourSidedAbsolute {
     
     /// The type of value for each of the 4 sides
@@ -43,6 +44,7 @@ public protocol FourSidedAbsolute {
 
 
 
+@available(watchOS 2.1, *)
 public extension FourSidedAbsolute {
     
     /// Initializes a new object with the vertical sides given individually and explicitly, but the horizontal sides
@@ -94,6 +96,7 @@ public extension FourSidedAbsolute {
 
 
 
+@available(watchOS 2.1, *)
 public extension FourSidedAbsolute where Length: AdditiveArithmetic {
     /// The total of the horizontal sides of the four-sided object
     var horizontalTotal: Length { left + right }
@@ -104,6 +107,7 @@ public extension FourSidedAbsolute where Length: AdditiveArithmetic {
 
 
 
+@available(watchOS 2.1, *)
 public extension FourSidedAbsolute where Length: ExpressibleByIntegerLiteral {
     /// One of these with all sides set to `0`
     static var zero: Self { Self.init(each: 0) }
@@ -111,6 +115,7 @@ public extension FourSidedAbsolute where Length: ExpressibleByIntegerLiteral {
 
 
 
+@available(watchOS 2.1, *)
 public extension FourSidedAbsolute where Self: Equatable, Self.Length: Equatable {
     static func ==(lhs: Self, rhs: Self) -> Bool {
         return lhs.top == rhs.top

@@ -6,7 +6,13 @@
 //  Copyright © 2020 Ben Leggiero. All rights reserved.
 //
 
-#if canImport(UIKit)
+#if canImport(WatchKit)
+    import WatchKit
+
+    public typealias NativeEdgeInsets = UIEdgeInsets
+    @available(watchOS 2.1, *)
+    public typealias UserInterfaceLayoutDirection = WKInterfaceLayoutDirection
+#elseif canImport(UIKit)
     import UIKit
 
     public typealias NativeEdgeInsets = UIEdgeInsets
@@ -20,7 +26,9 @@
 
 
 
+@available(watchOS 2.1, *)
 extension NativeEdgeInsets: FourSidedAbsolute {
+    @available(watchOS 2.1, *)
     public init(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
         self.init(top: top, left: left, bottom: bottom, right: right)
     }
@@ -43,6 +51,7 @@ extension NativeEdgeInsets: FourSidedAbsolute {
 
 
 
+@available(watchOS 2.1, *)
 public extension NativeEdgeInsets {
     /// The value of whichever edge inset is leading in the current app's UI direction
     var leading: CGFloat {
@@ -144,11 +153,14 @@ public typealias EdgeInsets = NativeEdgeInsets
 
 
 
+@available(watchOS 2.1, *)
 public extension UserInterfaceLayoutDirection {
     // TODO: Move this to some other package
     @inline(__always)
     static var current: UserInterfaceLayoutDirection {
-        #if canImport(UIKit)
+        #if canImport(WatchKit)
+        return WKInterfaceDevice.current().layoutDirection
+        #elseif canImport(UIKit)
         return UIApplication.shared.userInterfaceLayoutDirection
         #elseif canImport(AppKit)
         return NSApp?.userInterfaceLayoutDirection ?? .leftToRight
