@@ -52,6 +52,79 @@ public extension Rectangle
         Length: Comparable,
         Length: AdditiveArithmetic
 {
+    // MARK: Edgewise init
+    
+    /// Creates a new rectangle with its sides at the given positions
+    ///
+    /// ```swift
+    /// .init(
+    ///     minX: 0,
+    ///     minY: 2,
+    ///     maxX: 4,
+    ///     maxY: 6
+    /// )
+    /// ```
+    /// ```
+    /// 6 ┢━━━━━━━┓
+    /// 5 ┃       ┃
+    /// 4 ┃       ┃
+    /// 3 ┃       ┃
+    /// 2 ┡━━━━━━━┛
+    /// 1 │
+    /// 0 ┼────────────
+    ///   0 1 2 3 4 5 6
+    ///
+    ///
+    ///   0 1 2 3 4 5 6
+    /// 0 ┼────────────
+    /// 1 │
+    /// 2 ┢━━━━━━━┓
+    /// 3 ┃       ┃
+    /// 4 ┃       ┃
+    /// 5 ┃       ┃
+    /// 6 ┡━━━━━━━┛
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - minX:      The lowest X value of the new rectangle
+    ///   - minY:      The lowest Y value of the new rectangle
+    ///   - maxX:      The greatest X value of the new rectangle
+    ///   - maxY:      The greatest Y value of the new rectangle
+    init(
+        minX: Length,
+        minY: Length,
+        maxX: Length,
+        maxY: Length
+    ) {
+        guard minX <= maxX else {
+            assertionFailure("minX must be less or equal to than maxX")
+            self.init(
+                minX: maxX,
+                minY: minY,
+                maxX: minX,
+                maxY: maxY)
+            return
+        }
+        
+        guard minY <= maxY else {
+            assertionFailure("minY must be less or equal to than maxY")
+            self.init(
+                minX: minX,
+                minY: maxY,
+                maxX: maxX,
+                maxY: minY)
+            return
+        }
+        
+        
+        self.init(
+            x: minX,
+            y: minY,
+            width: maxX - minX,
+            height: maxY - minY)
+    }
+    
+    
     // MARK: Edges
     
     /// The smallest X value in this rectangle
