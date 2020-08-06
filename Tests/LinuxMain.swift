@@ -19,4 +19,5 @@ tests += SizePositionTests.allTests
 tests += TwoDimensionalMeasurementTests.allTests
 tests += FourSidedTests.allTests
 tests += Rectangle_Edgewise_Init_Tests.allTests
+tests += Rectangle_Combination_Tests.allTests
 XCTMain(tests)

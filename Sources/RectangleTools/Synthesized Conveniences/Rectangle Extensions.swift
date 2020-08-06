@@ -217,7 +217,7 @@ public extension Rectangle
 
 
 
-// MARK: -
+// MARK: - Repositioning
 
 public extension Rectangle where Self.Length: ExpressibleByIntegerLiteral {
     
@@ -378,5 +378,54 @@ public extension Rectangle
     {
         Point.init(x: percent(alongX: xPercent),
                    y: self.minY)
+    }
+}
+
+
+
+// MARK: - Combination
+
+public extension Rectangle
+    where Length: Comparable,
+          Length: AdditiveArithmetic
+{
+    func union(with other: Self) -> Self {
+        return Self.init(
+            minX: min(self.minX, other.minX),
+            minY: min(self.minY, other.minY),
+            maxX: max(self.maxX, other.maxX),
+            maxY: max(self.maxY, other.maxY)
+        )
+    }
+}
+
+
+
+public extension MutableRectangle
+    where Length: Comparable,
+          Length: AdditiveArithmetic
+{
+    mutating func formUnion(with other: Self) {
+        let template = self.union(with: other)
+        self.origin = template.origin
+        self.size = template.size
+    }
+}
+
+
+
+public extension Collection where Element: Rectangle {
+    /// Returns the smallest rectangle which encompasses all rectangles in a collection
+    ///
+    /// See also: `Rectangle.union(with:)`
+    func grandUnion() -> Element? {
+        guard let first = self.first else {
+            return nil
+        }
+        
+        return dropFirst()
+            .reduce(into: first) { grandUnion, rectangle in
+                grandUnion = grandUnion.union(with: rectangle)
+            }
     }
 }
