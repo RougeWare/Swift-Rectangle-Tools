@@ -1,8 +1,9 @@
 //
 //  Rectangle Combination Tests.swift
-//  
+//  RectangleTools
 //
 //  Created by Ben Leggiero on 2020-08-05.
+//  Copyright © 2019 Ben Leggiero BH-1-PS.
 //
 
 import XCTest
