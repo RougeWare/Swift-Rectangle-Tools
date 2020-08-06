@@ -43,23 +43,6 @@ public protocol Rectangle {
     ///   - origin: The location of the new rectangle's origin
     ///   - size:   The new rectangle's size
     init(origin: Point, size: Size)
-    
-    
-    /// Returns the smallest rectangle which encompasses both this and the given one
-    ///
-    /// ```
-    /// │                               │                       │
-    /// │                               │          ┌────┐       │  ┏━━━━━━━━┯━━━━┓
-    /// │                               │          │    │       │  ┃             ┃
-    /// │                  .union(with: │          └────┘  ) == │  ┃        └ ─ ─┨
-    /// │  ┌──────┐                     │                       │  ┠─ ─ ─ ┐      ┃
-    /// │  └──────┘                     │                       │  ┗━━━━━━┷━━━━━━┛
-    /// │                               │                       │
-    /// ┼─────────────────              ┼─────────────────      ┼─────────────────
-    /// ```
-    ///
-    /// - Parameter other: The other rectangle which will be encompassed in the result
-    func union(with other: Self) -> Self
 }
 
 
@@ -72,21 +55,4 @@ public protocol MutableRectangle: Rectangle
 {
     var origin: Point { get set }
     var size: Size { get set }
-    
-    
-    /// Converts this rectangle into the smallest rectangle which encompasses both this and the given one
-    ///
-    /// ```
-    /// │                                   │                       │
-    /// │                                   │          ┌────┐       │  ┏━━━━━━━━┯━━━━┓
-    /// │                                   │          │    │       │  ┃             ┃
-    /// │                  .formUnion(with: │          └────┘  ) -> │  ┃        └ ─ ─┨
-    /// │  ┌──────┐                         │                       │  ┠─ ─ ─ ┐      ┃
-    /// │  └──────┘                         │                       │  ┗━━━━━━┷━━━━━━┛
-    /// │                                   │                       │
-    /// ┼─────────────────                  ┼─────────────────      ┼─────────────────
-    /// ```
-    ///
-    /// - Parameter other: The other rectangle which will be encompassed in the result
-    mutating func formUnion(with other: Self)
 }
