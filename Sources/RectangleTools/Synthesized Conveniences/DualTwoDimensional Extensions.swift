@@ -163,3 +163,19 @@ public extension DualTwoDimensional
         self.init(firstDimensionPair: otherFirst, secondDimensionPair: otherSecond)
     }
 }
+
+
+
+public extension DualTwoDimensional
+    where FirstDimensionPair.Length: ExpressibleByIntegerLiteral,
+          SecondDimensionPair.Length: ExpressibleByIntegerLiteral
+{
+    
+    /// An instance of this where both of the pairs' Xs and Ys are `0`
+    @inlinable
+    static var zero: Self { self.init(firstDimensionPair: .zero, secondDimensionPair: .zero) }
+    
+    /// An instance of this where both of the pairs' Xs and Ys are `1`
+    @inlinable
+    static var one: Self { self.init(firstDimensionPair: .one, secondDimensionPair: .one) }
+}

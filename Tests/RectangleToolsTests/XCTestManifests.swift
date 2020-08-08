@@ -20,6 +20,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(FourSidedTests.allTests),
         testCase(Rectangle_Edgewise_Init_Tests.allTests),
         testCase(Rectangle_Combination_Tests.allTests),
+        testCase(DualTwoDimensionalTests.allTests),
     ]
 }
 #endif
