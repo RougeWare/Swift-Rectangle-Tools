@@ -94,7 +94,7 @@ import SwiftUI
 @available(iOS 13, *)
 @available(tvOS 13, *)
 @available(watchOS 6, *)
-extension EdgeInsets: FourSidedAbsolute {
+extension SwiftUI.EdgeInsets: FourSidedAbsolute {
     public init(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight:
@@ -121,7 +121,7 @@ extension EdgeInsets: FourSidedAbsolute {
 @available(iOS 13, *)
 @available(tvOS 13, *)
 @available(watchOS 6, *)
-public extension EdgeInsets {
+public extension SwiftUI.EdgeInsets {
     /// The value of whichever edge inset is leading in the current app's UI direction
     var right: CGFloat {
         switch UserInterfaceLayoutDirection.current {
