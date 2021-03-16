@@ -117,10 +117,7 @@ extension EdgeInsets: FourSidedAbsolute {
 
 
 
-@available(macOS 10.15, *)
-@available(iOS 13, *)
-@available(tvOS 13, *)
-@available(watchOS 6, *)
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 public extension EdgeInsets {
     /// The value of whichever edge inset is leading in the current app's UI direction
     var right: CGFloat {
