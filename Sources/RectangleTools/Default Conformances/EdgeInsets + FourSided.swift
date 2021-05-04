@@ -85,7 +85,7 @@ extension NSEdgeInsets: Equatable {}
 
 
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !RECTANGLETOOLS_EXCLUDE_SWIFTUI_EDGEINSETS
 import SwiftUI
 
 
