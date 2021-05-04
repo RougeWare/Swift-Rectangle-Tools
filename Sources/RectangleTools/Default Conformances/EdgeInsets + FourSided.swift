@@ -85,7 +85,7 @@ extension NSEdgeInsets: Equatable {}
 
 
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !RECTANGLETOOLS_EXCLUDE_SWIFTUI_EDGEINSETS
 import SwiftUI
 
 
@@ -94,7 +94,7 @@ import SwiftUI
 @available(iOS 13, *)
 @available(tvOS 13, *)
 @available(watchOS 6, *)
-extension SwiftUI.EdgeInsets: FourSidedAbsolute {
+extension EdgeInsets: FourSidedAbsolute {
     public init(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight:
@@ -117,11 +117,8 @@ extension SwiftUI.EdgeInsets: FourSidedAbsolute {
 
 
 
-@available(macOS 10.15, *)
-@available(iOS 13, *)
-@available(tvOS 13, *)
-@available(watchOS 6, *)
-public extension SwiftUI.EdgeInsets {
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+public extension EdgeInsets {
     /// The value of whichever edge inset is leading in the current app's UI direction
     var right: CGFloat {
         switch UserInterfaceLayoutDirection.current {
