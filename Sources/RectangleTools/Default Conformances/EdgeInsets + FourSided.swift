@@ -6,6 +6,8 @@
 //  Copyright © 2020 Ben Leggiero. All rights reserved.
 //
 
+import SwiftUI
+
 #if canImport(WatchKit)
     import WatchKit
 
@@ -85,11 +87,6 @@ extension NSEdgeInsets: Equatable {}
 
 
 
-#if canImport(SwiftUI) && !RECTANGLETOOLS_EXCLUDE_SWIFTUI_EDGEINSETS
-import SwiftUI
-
-
-
 @available(macOS 10.15, *)
 @available(iOS 13, *)
 @available(tvOS 13, *)
@@ -142,11 +139,6 @@ public extension EdgeInsets {
         }
     }
 }
-#else
-
-public typealias EdgeInsets = NativeEdgeInsets
-
-#endif
 
 
 
