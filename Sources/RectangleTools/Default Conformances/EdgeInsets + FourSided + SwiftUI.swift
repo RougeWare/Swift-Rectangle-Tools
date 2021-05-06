@@ -5,7 +5,6 @@
 //  Created by Ben Leggiero on 2021-05-05.
 //
 
-#if canImport(SwiftUI) && !RECTANGLETOOLS_EXCLUDE_SWIFTUI_EDGEINSETS
 import SwiftUI
 
 
@@ -62,9 +61,3 @@ public extension EdgeInsets {
         }
     }
 }
-#else
-
-public typealias EdgeInsets = NativeEdgeInsets
-
-#endif
-
