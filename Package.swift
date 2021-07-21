@@ -18,6 +18,9 @@ let package = Package(
         .library(
             name: "RectangleTools",
             targets: ["RectangleTools"]),
+        .library(
+            name: "RectangleTools_SwiftUI",
+            targets: ["RectangleTools_SwiftUI"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -32,5 +35,12 @@ let package = Package(
         .testTarget(
             name: "RectangleToolsTests",
             dependencies: ["RectangleTools"]),
+        
+        .target(
+            name: "RectangleTools_SwiftUI",
+            dependencies: ["RectangleTools"]),
+        .testTarget(
+            name: "RectangleTools_SwiftUI_Tests",
+            dependencies: ["RectangleTools_SwiftUI"]),
     ]
 )
