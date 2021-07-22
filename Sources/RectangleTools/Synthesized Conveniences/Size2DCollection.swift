@@ -100,11 +100,8 @@ extension Size2DCollectionIndex: Point2D {
 
 
 
-public extension Size2DCollection
-    where
-        Length: BinaryInteger,
-        Element == Index
-{
+public extension Size2DCollection where Element == Index {
+    
     var startIndex: Index { Index(x: 0, y: 0) }
     var endIndex: Index { Index(x: width, y: height) }
     var lastValidIndex: Index { Index(x: width - 1, y: height - 1) }

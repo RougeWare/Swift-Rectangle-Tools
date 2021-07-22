@@ -24,7 +24,7 @@ final class FourSidedTests: XCTestCase {
 
 extension FourSidedTests {
     
-    private static let insets_raw_1_2_3_4 = NativeEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
+    private static let insets_raw_1_2_3_4 = NativeEdgeInsets(top: 1, right: 4, bottom: 3, left: 2)
     private static let insets_synth_5_6_7_8 = NativeEdgeInsets(top: 5, right: 6, bottom: 7, left: 8)
     
     func testFourSidedAbsoluteFields_EdgeInsets() {
@@ -44,11 +44,11 @@ extension FourSidedTests {
     
     
     func testInitializers_EdgeInsets() {
-        XCTAssertEqual(NativeEdgeInsets(top: 5, right: 6, bottom: 7, left: 8), NativeEdgeInsets(top: 5, left: 8, bottom: 7, right: 6))
-        XCTAssertEqual(NativeEdgeInsets(top: 9, eachHorizontal: 10, bottom: 11), NativeEdgeInsets(top: 9, left: 10, bottom: 11, right: 10))
-        XCTAssertEqual(NativeEdgeInsets(eachVertical: 12, eachHorizontal: 13), NativeEdgeInsets(top: 12, left: 13, bottom: 12, right: 13))
-        XCTAssertEqual(NativeEdgeInsets(each: 14), NativeEdgeInsets(top: 14, left: 14, bottom: 14, right: 14))
-        XCTAssertEqual(NativeEdgeInsets.zero, NativeEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        XCTAssertEqual(NativeEdgeInsets(top: 5, right: 6, bottom: 7, left: 8), NativeEdgeInsets(top: 5, right: 6, bottom: 7, left: 8))
+        XCTAssertEqual(NativeEdgeInsets(top: 9, eachHorizontal: 10, bottom: 11), NativeEdgeInsets(top: 9, right: 10, bottom: 11, left: 10))
+        XCTAssertEqual(NativeEdgeInsets(eachVertical: 12, eachHorizontal: 13), NativeEdgeInsets(top: 12, right: 13, bottom: 12, left: 13))
+        XCTAssertEqual(NativeEdgeInsets(each: 14), NativeEdgeInsets(top: 14, right: 14, bottom: 14, left: 14))
+        XCTAssertEqual(NativeEdgeInsets.zero, NativeEdgeInsets(top: 0, right: 0, bottom: 0, left: 0))
     }
     
     
