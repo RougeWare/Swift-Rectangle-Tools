@@ -157,12 +157,15 @@ public extension UserInterfaceLayoutDirection {
     // TODO: Move this to some other package
     @inline(__always)
     static var current: UserInterfaceLayoutDirection {
+        #if canImport(WatchKit)
+            let legacyCurrent = WKInterfaceDevice.current().layoutDirection
+        #elseif canImport(UIKit)
+            let legacyCurrent = UIApplication.shared.userInterfaceLayoutDirection
+        #elseif canImport(AppKit)
+            let legacyCurrent = NSApp?.userInterfaceLayoutDirection ?? .leftToRight
+        #endif
+        
         #if canImport(SwiftUI)
-            #if canImport(UIKit)
-                let legacyCurrent = UIApplication.shared.userInterfaceLayoutDirection
-            #elseif canImport(AppKit)
-                let legacyCurrent = NSApp?.userInterfaceLayoutDirection ?? .leftToRight
-            #endif
             switch legacyCurrent {
             case .leftToRight: return .leftToRight
             case .rightToLeft: return .rightToLeft
@@ -170,12 +173,8 @@ public extension UserInterfaceLayoutDirection {
                 assertionFailure("Unknown user interface layout direction (will assume LTR): \(UserInterfaceLayoutDirection.current)")
                 return .leftToRight
             }
-        #elseif canImport(WatchKit)
-            return WKInterfaceDevice.current().layoutDirection
-        #elseif canImport(UIKit)
-            return UIApplication.shared.userInterfaceLayoutDirection
-        #elseif canImport(AppKit)
-            return NSApp?.userInterfaceLayoutDirection ?? .leftToRight
+        #else
+            return legacyCurrent
         #endif
     }
 }
