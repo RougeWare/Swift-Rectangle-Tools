@@ -79,8 +79,10 @@ public extension TwoDimensional where Length: BinaryFloatingPoint {
     
     
     /// The ratio of the X dimension to the Y dimension
-    func aspectRatio() -> CGFloat {
-        return abs(CGFloat(measurementX) / CGFloat(measurementY))
+    func aspectRatio() -> CGFloat
+        where Self.Length: MultiplicativeArithmetic
+    {
+        CGFloat(aspectRatioDoingGenericMathWithLengthType())
     }
 }
 
@@ -89,8 +91,8 @@ public extension TwoDimensional where Length: BinaryFloatingPoint {
 public extension TwoDimensional where Length == Decimal {
     
     /// The ratio of the X dimension to the Y dimension
-    func aspectRatio() -> Length {
-        return abs(measurementX / measurementY)
+    func aspectRatio() -> Decimal {
+        abs(measurementX / measurementY)
     }
 }
 
@@ -163,9 +165,44 @@ public extension TwoDimensional where Length: BinaryInteger {
     
     
     /// The ratio of the X dimension to the Y dimension
-    func aspectRatio() -> CGFloat {
-        return abs(CGFloat(measurementX) / CGFloat(measurementY))
+    func aspectRatio() -> CGFloat
+        where Length: MultiplicativeArithmetic
+    {
+        CGFloat(aspectRatioDoingGenericMathWithLengthType())
     }
+}
+
+
+
+public extension TwoDimensional
+where Length: MultiplicativeArithmetic,
+      Length: AdditiveArithmetic,
+      Length: Comparable,
+      Length: ExpressibleByIntegerLiteral {
+    
+    /// The ratio of the X dimension to the Y dimension. Wider objects result in a greater value. Square objects result in `1`
+    ///
+    /// This specialization function is necessary because aspect ratios less than 1 cannot be represented by integers
+    private func aspectRatioDoingGenericMathWithLengthType() -> CGFloat
+        where Length: BinaryInteger
+    {
+        let raw = CGFloat(measurementX) / CGFloat(measurementY)
+        return raw < 0
+            ? 0 - raw
+            : raw
+    }
+    
+    /// The ratio of the X dimension to the Y dimension. Wider objects result in a greater value. Square objects result in `1`
+    private func aspectRatioDoingGenericMathWithLengthType() -> Length {
+        let raw = measurementX / measurementY
+        return raw < 0
+            ? 0 - raw
+            : raw
+    }
+    
+    
+    /// The ratio of the X dimension to the Y dimension. Wider objects result in a greater value. Square objects result in `1`
+    func aspectRatio() -> Length { aspectRatioDoingGenericMathWithLengthType() }
 }
 
 
