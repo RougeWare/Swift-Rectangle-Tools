@@ -313,13 +313,13 @@ public enum ScaleMethod {
 
 
 
-/// A method by which one rectangular object can be scaled to fit within another
+/// A method by which one rectangular object can be scaled within another
 public enum ScaleDirection {
     
-    /// Keep the target object the same size, or scale it down to fit
+    /// Keep the target object the same size, or scale it down within another
     case down
     
-    /// Allow the target object to scale up or down to fit
+    /// Allow the target object to scale up or down within another
     case upOrDown
 }
 
