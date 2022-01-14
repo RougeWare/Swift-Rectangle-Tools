@@ -1,0 +1,17 @@
+name: iOS
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    timeout-minutes: 5
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Generate iOS xcodeproj
+      run: swift package generate-xcodeproj
+    - name: Run iOS tests
+      run: xcodebuild build test -destination 'name=iPhone 11' -scheme 'RectangleTools-Package'
+
