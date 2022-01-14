@@ -1,0 +1,16 @@
+name: macOS
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    timeout-minutes: 5
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v
