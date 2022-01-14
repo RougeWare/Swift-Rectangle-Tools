@@ -581,22 +581,26 @@ private func testScaling(
 -> Bool {
     var allSucceeded = true
     
-    let parent = CGRect(size: parent)
-    let child = CGRect(size: child)
+    let parent = CGRect(origin: .random(), size: parent)
+    let child = CGRect(origin: .random(), size: child)
     
     let scaled = child.scaled(within: parent, method: method, direction: direction)
     XCTAssertEqual(scaled.width, expect.width, accuracy: .approximationTolerance)
     XCTAssertEqual(scaled.height, expect.height, accuracy: .approximationTolerance)
-    allSucceeded &&= scaled ≈≈ expect
+    allSucceeded &&= scaled.size ≈≈ expect
     
     if expectAspectRatioOfParent {
-        XCTAssertEqual(scaled.aspectRatio(), parent.aspectRatio(), accuracy: .approximationTolerance)
-        allSucceeded &&= scaled.aspectRatio() ≈≈ parent.aspectRatio()
+        XCTAssertEqual(scaled.size.aspectRatio(), parent.size.aspectRatio(), accuracy: .approximationTolerance)
+        allSucceeded &&= scaled.size.aspectRatio() ≈≈ parent.size.aspectRatio()
     }
     else {
-        XCTAssertEqual(scaled.aspectRatio(), child.aspectRatio(), accuracy: .approximationTolerance)
-        allSucceeded &&= scaled.aspectRatio() ≈≈ child.aspectRatio()
+        XCTAssertEqual(scaled.size.aspectRatio(), child.size.aspectRatio(), accuracy: .approximationTolerance)
+        allSucceeded &&= scaled.size.aspectRatio() ≈≈ child.size.aspectRatio()
     }
+    
+    XCTAssertEqual(scaled.midX, parent.midX, accuracy: .approximationTolerance)
+    XCTAssertEqual(scaled.midY, parent.midY, accuracy: .approximationTolerance)
+    allSucceeded &&= scaled.center ≈≈ parent.center
     
     return allSucceeded
 }
@@ -614,18 +618,5 @@ private extension CGFloat {
 private extension CGPoint {
     static func random() -> Self {
         .init(x: .random(), y: .random())
-    }
-}
-
-
-
-private extension CGRect {
-    init(size: CGSize) {
-        self.init(origin: .random(), size: size)
-    }
-    
-    
-    init(width: CGFloat, height: CGFloat) {
-        self.init(size: CGSize(width: width, height: height))
     }
 }

@@ -331,7 +331,6 @@ where Length: MultiplicativeArithmetic,
       Length: Comparable,
       Length: ExpressibleByIntegerLiteral
 {
-    
     /// Scales this within the given parent, using the given scaling method
     ///
     /// - Parameters:
@@ -392,7 +391,7 @@ where Length: MultiplicativeArithmetic,
             switch direction {
             case .down:
                 if parent.measurementX > self.measurementX {
-                    // If we are only scaling the height down, and the parent's height is taller than this height,
+                    // If we are only scaling the width down, and the parent's width is wider than this width,
                     // then return this instead of scaling up.
                     return self
                 }
@@ -437,16 +436,36 @@ where Length: MultiplicativeArithmetic,
       Length: ExpressibleByIntegerLiteral
 {
     
+    /// Scales this rectangle within the given parent, using the given scaling method
+    ///
+    /// - Parameters:
+    ///    - parent:    The parent rectangle within which to scale this rectangle
+    ///    - method:    The method by which to perform the scaling. The detailed ways in which these work are documented on each method
+    ///    - direction: _optional_ - Which direction to scale this rectangle. Defaults to `.down`
+    ///
+    /// - Returns: A scaled version of this rectangle, relative to the given parent
     func scaled<Other>(within parent: Other, method: ScaleMethod, direction: ScaleDirection = .down) -> Self
     where Other: Rectangle,
           Other.Length == Self.Length
     {
-        let scaledSize = self.size.scaled(within: parent.size, method: method, direction: direction)
-        var result = Self.init(origin: .zero, size: scaledSize)
+        Self.init(
+            origin: .zero,
+            size: size.scaled(within: parent.size, method: method, direction: direction)
+        )
+            .centered(within: parent)
     }
     
     
-    func centered<Other>(within other: Other) -> Self {
-        TODO
+    /// Returns a version of this rectangle which is centered within the given other rectangle, so that their `.center` values are the same
+    ///
+    /// - Returns: This rectangle, centered within the given other one
+    func centered<Other>(within other: Other) -> Self
+    where Other: Rectangle,
+          Other.Length == Self.Length
+    {
+        Self.init(
+            origin: .init(x: other.midX - (self.width / 2),
+                          y: other.midY - (self.height / 2)),
+            size: self.size)
     }
 }
