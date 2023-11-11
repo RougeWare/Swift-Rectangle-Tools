@@ -11,7 +11,7 @@ import Foundation
 
 
 /// A size in two dimensions
-public protocol Size2D: TwoDimensional {
+public protocol Size2D: TwoDimensional, CartesianMeasurable {
     
     /// The unit in which the size is defined
     associatedtype Length
@@ -44,6 +44,8 @@ public protocol MutableSize2D: Size2D, MutableTwoDimensional {
 
 
 // MARK: - Synthesis
+
+// MARK: General
 
 public extension Size2D {
     
