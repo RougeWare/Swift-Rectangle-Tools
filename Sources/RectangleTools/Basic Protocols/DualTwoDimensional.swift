@@ -83,11 +83,3 @@ public extension DualTwoDimensional where Self: Rectangle {
         self.init(origin: firstDimensionPair, size: secondDimensionPair)
     }
 }
-
-
-
-// MARK: - Default conformances
-
-extension BinaryIntegerRectangle: DualTwoDimensional {}
-extension DecimalRectangle: DualTwoDimensional {}
-extension CGRect: DualTwoDimensional {}

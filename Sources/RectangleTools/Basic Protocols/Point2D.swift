@@ -45,6 +45,8 @@ public protocol MutablePoint2D: Point2D, MutableTwoDimensional {
 
 // MARK: - Synthesis
 
+// MARK: TwoDimensional
+
 public extension Point2D {
     
     var measurementX: Length {

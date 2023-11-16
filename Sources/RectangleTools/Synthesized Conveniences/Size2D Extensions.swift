@@ -23,6 +23,8 @@ public extension Size2D {
 
 
 
+// MARK: - CartesianMeasurable
+
 public extension Size2D
     where
         Length: Comparable,

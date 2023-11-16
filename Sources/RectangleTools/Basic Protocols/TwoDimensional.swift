@@ -13,6 +13,9 @@ import Foundation
 /// Something which can be measured using only two dimensions
 public protocol TwoDimensional {
     
+    /// The type to use for measurements of length (x/y, width/height, etc.).
+    ///
+    /// This is typically a numeric type like `Int`, `Float64`, or `Decimal`.
     associatedtype Length
     
     

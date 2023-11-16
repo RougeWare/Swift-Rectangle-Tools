@@ -10,8 +10,10 @@ import Foundation
 
 
 
+// MARK: - Rectangle
+
 /// A two-dimensional rectangle
-public protocol Rectangle {
+public protocol Rectangle: DualTwoDimensional, CartesianMeasurable {
     
     /// The unit in which the origin and size are defined
     associatedtype Length
@@ -46,6 +48,8 @@ public protocol Rectangle {
 }
 
 
+
+// MARK: - Mutable Rectangle
 
 /// A two-dimensional rectangle which can be mutated
 public protocol MutableRectangle: Rectangle
