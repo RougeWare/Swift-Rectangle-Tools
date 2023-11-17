@@ -13,7 +13,10 @@ import Foundation
 // MARK: - Rectangle
 
 /// A two-dimensional rectangle
-public protocol Rectangle: DualTwoDimensional, CartesianMeasurable {
+public protocol Rectangle: DualTwoDimensional, CartesianMeasurable
+where FirstDimensionPair.Length == SecondDimensionPair.Length,
+      FirstDimensionPair.Length == Self.Length
+{
     
     /// The unit in which the origin and size are defined
     associatedtype Length

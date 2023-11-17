@@ -8,6 +8,15 @@ Who knew there was so much to be done with rectangles?
 
 
 
+## Easy To Adopt
+
+This library aims to never get in your way. Minimal arbitrary decisions, maximum flexibility.
+
+For example, other frameworks might say that they help you find the distance from any `CGPoint` to another, but doesn't provide that functionality to any other type. 
+This one doesn't care what types the two are, as long as thier `x` and `y` coordinates use the same type. That means if you want to measure the distance from some `CGPoint` to some custom 2D point-like structure which also uses `CGFlaot`s, this will happily let you do that with no fuss.
+
+
+
 ## Thoroughly Tested ##
 
 Over 2,000 test assertions prove that this library works as it says it does

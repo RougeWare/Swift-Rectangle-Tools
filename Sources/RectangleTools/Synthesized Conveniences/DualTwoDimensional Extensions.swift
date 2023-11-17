@@ -8,6 +8,8 @@
 
 import Foundation
 
+import MultiplicativeArithmetic
+
 
 
 public extension DualTwoDimensional
@@ -178,4 +180,30 @@ public extension DualTwoDimensional
     /// An instance of this where both of the pairs' Xs and Ys are `1`
     @inlinable
     static var one: Self { self.init(firstDimensionPair: .one, secondDimensionPair: .one) }
+}
+
+
+
+public extension DualTwoDimensional
+where FirstDimensionPair.Length == SecondDimensionPair.Length
+{
+    typealias Length = FirstDimensionPair.Length
+}
+
+
+
+// MARK: - Math!
+
+public extension DualTwoDimensional
+where FirstDimensionPair: Point2D,
+      SecondDimensionPair: Point2D,
+      FirstDimensionPair.Length == SecondDimensionPair.Length,
+      Length: MultiplicativeArithmetic,
+      Length: AdditiveArithmetic,
+      Length: ExpressibleByIntegerLiteral
+{
+    /// The magnitude of a vector is the distance from its anchor to its farthest indicated location
+    var magnitude: Length {
+        firstDimensionPair.distance(to: secondDimensionPair)
+    }
 }
