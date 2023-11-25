@@ -25,6 +25,25 @@ public extension Point2D {
 
 
 public extension Point2D
+    where Length: BinaryFloatingPoint
+{
+    /// Creates a new point with the given values from a different type
+    ///
+    /// - Parameters:
+    ///   - x: The X coordinate to convert
+    ///   - y: The Y coordinate to convert
+    @inline(__always)
+    init<OtherLength>(x: OtherLength, y: OtherLength)
+        where OtherLength: BinaryFloatingPoint
+    {
+        self.init(measurementX: x,
+                  measurementY: y)
+    }
+}
+
+
+
+public extension Point2D
 where Length: MultiplicativeArithmetic,
       Length: AdditiveArithmetic,
       Length: ExpressibleByIntegerLiteral

@@ -23,6 +23,25 @@ public extension Size2D {
 
 
 
+public extension Point2D
+    where Length: BinaryFloatingPoint
+{
+    /// Creates a new size with the given values from a different type
+    ///
+    /// - Parameters:
+    ///   - width:  The width measurement to convert
+    ///   - height: The height measurement to convert
+    @inline(__always)
+    init<OtherLength>(width: OtherLength, height: OtherLength)
+        where OtherLength: BinaryFloatingPoint
+    {
+        self.init(measurementX: width,
+                  measurementY: height)
+    }
+}
+
+
+
 // MARK: - CartesianMeasurable
 
 public extension Size2D
@@ -50,7 +69,7 @@ public extension Size2D
     var maxY: Length { max(.zero, height) }
     
     
-    // MARK: Points
+    // MARK: Generic Point extremities
     
     /// The point with the smallest X and Y values in this size
     @inlinable
@@ -67,7 +86,30 @@ public extension Size2D
     /// The point with the largest X and Y values in this size
     @inlinable
     func maxXmaxY<Point: Point2D>() -> Point where Point.Length == Self.Length { Point.init(x: maxX, y: maxY) }
+}
+
+
+
+public extension Size2D
+where Length: BinaryFloatingPoint
+{
+    // MARK: CGPoint extremities
     
+    /// The point with the smallest X and Y values in this size
+    @inlinable
+    func minXminY() -> CGPoint { .init(measurementX: minX, measurementY: minY) }
+    
+    /// The point with the smallest X and largest Y values in this size
+    @inlinable
+    func minXmaxY() -> CGPoint { .init(measurementX: minX, measurementY: maxY) }
+    
+    /// The point with the largest X and smallest Y values in this size
+    @inlinable
+    func maxXminY() -> CGPoint { .init(measurementX: maxX, measurementY: minY) }
+    
+    /// The point with the largest X and Y values in this size
+    @inlinable
+    func maxXmaxY() -> CGPoint { .init(measurementX: maxX, measurementY: maxY) }
 }
 
 

@@ -12,9 +12,54 @@ import RectangleTools
 
 final class Point_Tests: XCTestCase {
     
-    func testDistance() {
+    func testPointToPointDistance() {
         XCTAssertEqual(CGPoint(x: 0, y: 0).distance(to: CGPoint(x: 1, y: 1)), sqrt(2))
+        XCTAssertEqual(CGPoint(x: 0, y: 0).distance(to: CGPoint(x: -1, y: 1)), sqrt(2))
+        XCTAssertEqual(CGPoint(x: 0, y: 0).distance(to: CGPoint(x: 1, y: -1)), sqrt(2))
         XCTAssertEqual(CGPoint(x: 0, y: 0).distance(to: CGPoint(x: -1, y: -1)), sqrt(2))
+    }
+    
+    
+    func testSizeExtremitiesDistance() {
+        var cgSize = CGSize(width: 1, height: 1)
+        XCTAssertEqual(cgSize.minXminY().distance(to: cgSize.maxXmaxY()), sqrt(2))
+        
+        cgSize = CGSize(width: -1, height: 1)
+        XCTAssertEqual(cgSize.minXminY().distance(to: cgSize.maxXmaxY()), sqrt(2))
+        
+        cgSize = CGSize(width: 1, height: -1)
+        XCTAssertEqual(cgSize.minXminY().distance(to: cgSize.maxXmaxY()), sqrt(2))
+        
+        cgSize = CGSize(width: -1, height: -1)
+        XCTAssertEqual(cgSize.minXminY().distance(to: cgSize.maxXmaxY()), sqrt(2))
+    }
+    
+    
+    func testRectExtremitiesDistance() {
+        var cgRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        cgRect = CGRect(x: 0, y: 0, width: -1, height: 1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        cgRect = CGRect(x: 0, y: 0, width: 1, height: -1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        cgRect = CGRect(x: 0, y: 0, width: -1, height: -1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        
+        cgRect = CGRect(x: .random(in: -1000 ... 1000), y: .random(in: -1000 ... 1000), width: 1, height: 1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        cgRect = CGRect(x: .random(in: -1000 ... 1000), y: .random(in: -1000 ... 1000), width: -1, height: 1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        cgRect = CGRect(x: .random(in: -1000 ... 1000), y: .random(in: -1000 ... 1000), width: 1, height: -1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
+        
+        cgRect = CGRect(x: .random(in: -1000 ... 1000), y: .random(in: -1000 ... 1000), width: -1, height: -1)
+        XCTAssertEqual(cgRect.minXminY.distance(to: cgRect.maxXmaxY), sqrt(2))
     }
     
     
