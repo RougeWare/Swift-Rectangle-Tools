@@ -14,6 +14,18 @@ import MultiplicativeArithmetic
 
 public extension TwoDimensional where Length: BinaryFloatingPoint {
     
+    /// Creates a new 2D with the given values from a different type
+    ///
+    /// - Parameters:
+    ///   - measurementX: The X measurement to convert
+    ///   - measurementY: The Y measurement to convert
+    init<OtherLength>(measurementX: OtherLength, measurementY: OtherLength)
+        where OtherLength: BinaryFloatingPoint
+    {
+        self.init(measurementX: .init(measurementX),
+                  measurementY: .init(measurementY))
+    }
+    
     /// Creates a new 2D object by converting the values of the given one
     ///
     /// - Parameter other: Another 2D object to convert
