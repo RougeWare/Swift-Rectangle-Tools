@@ -263,3 +263,19 @@ public extension TwoDimensional where Length: MultiplicativeArithmetic {
     /// Returns the product of multiplying both measurements
     var product: Length { measurementX * measurementY }
 }
+
+
+
+public extension TwoDimensional where Length: SignedNumeric {
+    
+    /// Negates both the X and Y measurements
+    ///
+    /// ```swift
+    /// let point = UIntPoint(3, -4)
+    /// print(-point) // (-3, 4)
+    /// ```
+    static prefix func -(_ lhs: Self) -> Self {
+        Self.init(measurementX: -lhs.measurementX,
+                  measurementY: -lhs.measurementY)
+    }
+}
