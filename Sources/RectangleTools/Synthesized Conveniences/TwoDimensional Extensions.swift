@@ -279,3 +279,37 @@ public extension TwoDimensional where Length: SignedNumeric {
                   measurementY: -lhs.measurementY)
     }
 }
+
+
+
+// MARK: - Operators
+
+public extension TwoDimensional where Length: AdditiveArithmetic {
+    static func + (multiplier: Length, value: Self) -> Self {
+        .init(
+            measurementX: multiplier + value.measurementX,
+            measurementY: multiplier + value.measurementY
+        )
+    }
+    
+    
+    static func + (value: Self, multiplier: Length) -> Self {
+        multiplier + value
+    }
+}
+
+
+
+public extension TwoDimensional where Length: MultiplicativeArithmetic {
+    static func * (multiplier: Length, value: Self) -> Self {
+        .init(
+            measurementX: multiplier * value.measurementX,
+            measurementY: multiplier * value.measurementY
+        )
+    }
+    
+    
+    static func * (value: Self, multiplier: Length) -> Self {
+        multiplier * value
+    }
+}
