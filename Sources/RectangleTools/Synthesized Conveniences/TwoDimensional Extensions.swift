@@ -296,6 +296,22 @@ public extension TwoDimensional where Length: AdditiveArithmetic {
     static func + (value: Self, multiplier: Length) -> Self {
         multiplier + value
     }
+    
+    
+    static func - (multiplier: Length, value: Self) -> Self {
+        .init(
+            measurementX: multiplier - value.measurementX,
+            measurementY: multiplier - value.measurementY
+        )
+    }
+    
+    
+    static func - (value: Self, multiplier: Length) -> Self {
+        .init(
+            measurementX: value.measurementX - multiplier,
+            measurementY: value.measurementY - multiplier
+        )
+    }
 }
 
 
@@ -311,5 +327,21 @@ public extension TwoDimensional where Length: MultiplicativeArithmetic {
     
     static func * (value: Self, multiplier: Length) -> Self {
         multiplier * value
+    }
+    
+    
+    static func / (multiplier: Length, value: Self) -> Self {
+        .init(
+            measurementX: multiplier / value.measurementX,
+            measurementY: multiplier / value.measurementY
+        )
+    }
+    
+    
+    static func / (value: Self, multiplier: Length) -> Self {
+        .init(
+            measurementX: value.measurementX / multiplier,
+            measurementY: value.measurementY / multiplier
+        )
     }
 }
