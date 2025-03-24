@@ -9,6 +9,7 @@ This package includes:
 - centering and scaling
 - generic protocols to unify math across all Cartesian types
 - conveniences for measuring and placing rectangles/points/sizes
+- mathematical operators
 - and much more...
 
 Who knew there was so much to be done with rectangles?
