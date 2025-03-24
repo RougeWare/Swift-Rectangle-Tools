@@ -1,11 +1,11 @@
-name: iOS
+name: watchOS
 
 on: [pull_request]
 
 jobs:
   build:
 
-    timeout-minutes: 6
+    timeout-minutes: 4
     runs-on: macOS-latest
 
     steps:
@@ -13,10 +13,10 @@ jobs:
       uses: SwiftyLab/setup-swift@latest
       with:
         swift-version: '6.0'
-        
+    
     - name: Swift version
       run: swift --version
-    
+      
     - uses: actions/checkout@v3
     
     - name: Build
@@ -25,6 +25,6 @@ jobs:
     - name: What schemes?
       run: xcodebuild build test -list
     
-    - name: Run iOS tests
-      run: xcodebuild build test -destination 'name=iPhone 16' -scheme 'RectangleTools'
+    - name: Run watchOS tests
+      run: xcodebuild build test -destination 'name=Apple Watch Ultra 2 (49mm)' -scheme 'RectangleTools'
 

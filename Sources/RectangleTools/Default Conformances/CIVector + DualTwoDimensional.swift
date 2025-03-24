@@ -5,6 +5,7 @@
 //  Created by The Northstar✨ System on 2023-11-16.
 //
 
+#if canImport(CoreImage)
 import CoreImage
 
 
@@ -38,3 +39,4 @@ public extension DualTwoDimensional where Self: CIVector {
                   w: secondDimensionPair.y)
     }
 }
+#endif
