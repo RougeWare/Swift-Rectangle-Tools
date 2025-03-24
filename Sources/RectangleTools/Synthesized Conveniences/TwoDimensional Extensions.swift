@@ -279,3 +279,142 @@ public extension TwoDimensional where Length: SignedNumeric {
                   measurementY: -lhs.measurementY)
     }
 }
+
+
+
+// MARK: - Operators
+
+public extension TwoDimensional where Length: AdditiveArithmetic {
+    /// Add the given scalar value to both dimensions of the 2D value
+    ///
+    /// ```
+    /// 11 + CGPoint(x: 7, y: 12)  ==   CGPoint(x: 18, y: 23)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - augend: This will be added to both dimensions of `addend`
+    ///   - addend: The dimensions here will have `augend` added to each
+    static func + (augend: Length, addend: Self) -> Self {
+        .init(
+            measurementX: augend + addend.measurementX,
+            measurementY: augend + addend.measurementY
+        )
+    }
+    
+    
+    /// Add the given scalar value to both dimensions of the 2D value
+    ///
+    /// ```
+    /// CGPoint(x: 7, y: 12) + 11  ==   CGPoint(x: 18, y: 23)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - augend: The dimensions here will have `augend` added to each
+    ///   - addend: This will be added to both dimensions of `addend`
+    static func + (augend: Self, addend: Length) -> Self {
+        addend + augend
+    }
+    
+    
+    /// Subtracts both dimensions of the 2D value from the given scalar value and returns the result as that same 2D type
+    ///
+    /// ```
+    /// 11 - CGPoint(x: 7, y: 12)  ==   CGPoint(x: 4, y: -1)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - minuend: This will have each dimension of `subtrahend` subtracted from it
+    ///   - subtrahend: Each dimension of this will be subtracted from `minuend`
+    static func - (minuend: Length, subtrahend: Self) -> Self {
+        .init(
+            measurementX: minuend - subtrahend.measurementX,
+            measurementY: minuend - subtrahend.measurementY
+        )
+    }
+    
+    
+    /// Subtracts the given scalar value from both dimensions of the 2D value and returns the result as that same 2D type
+    ///
+    /// ```
+    /// CGPoint(x: 7, y: 12) - 11  ==   CGPoint(x: -4, y: 1)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - minuend: Each dimension of this will be subtracted from `minuend`
+    ///   - subtrahend: This will have `minuend` subtracted from each dimension of it
+    static func - (minuend: Self, subtrahend: Length) -> Self {
+        .init(
+            measurementX: minuend.measurementX - subtrahend,
+            measurementY: minuend.measurementY - subtrahend
+        )
+    }
+}
+
+
+
+public extension TwoDimensional where Length: MultiplicativeArithmetic {
+    
+    /// Multiplies the given scalar value by both dimensions of the 2D value
+    ///
+    /// ```
+    /// 2 * CGPoint(x: 7, y: 12)   ==   CGPoint(x: 14, y: 24)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - multiplier: This will be multiplied by both dimensions of `multiplicand`
+    ///   - multiplicand: The dimensions here will have `multiplier` multiplied by each
+    static func * (multiplier: Length, multiplicand: Self) -> Self {
+        .init(
+            measurementX: multiplier * multiplicand.measurementX,
+            measurementY: multiplier * multiplicand.measurementY
+        )
+    }
+    
+    /// Multiplies both dimensions of the given 2D value by the scalar value
+    ///
+    /// ```
+    /// CGPoint(x: 7, y: 12) * 2   ==   CGPoint(x: 14, y: 24)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - multiplier: The dimensions here will have `multiplier` multiplied by each
+    ///   - multiplicand: This will be multiplied by both dimensions of `multiplicand`
+    static func * (multiplier: Self, multiplicand: Length) -> Self {
+        multiplicand * multiplier
+    }
+    
+    
+    /// Divides the given scalar value by both dimensions of the 2D value and returns the result as that same 2D type
+    ///
+    /// ```
+    /// 2 / CGPoint(x: 7, y: 12)  ==   CGPoint(x: 2/7, y: 0.125)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - numerator: This be divided by each dimension of `denominator`
+    ///   - denominator: Each dimension of this will be divided into `numerator`
+//    CGPoint(x: 7, y: 12) / 2   ==   CGPoint(x: 3.5 y: 6)
+    static func / (numerator: Length, denominator: Self) -> Self {
+        .init(
+            measurementX: numerator / denominator.measurementX,
+            measurementY: numerator / denominator.measurementY
+        )
+    }
+    
+    
+    /// Divides both dimensions of the given 2D value by the scalar value and returns the result as that same 2D type
+    ///
+    /// ```
+    /// CGPoint(x: 7, y: 12) / 2  ==   CGPoint(x: 3.5 y: 6)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - numerator: Each dimension of this be divided by `denominator`
+    ///   - denominator: This will be divided into each dimension of `numerator`
+    static func / (numerator: Self, denominator: Length) -> Self {
+        .init(
+            measurementX: numerator.measurementX / denominator,
+            measurementY: numerator.measurementY / denominator
+        )
+    }
+}
