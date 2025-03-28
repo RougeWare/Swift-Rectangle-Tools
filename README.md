@@ -59,12 +59,3 @@ Over 2,000 test assertions prove that this library works as it says it does
 ## Battle Hardened ##
 
 This library was created for enterprise-scale applications, and is being used by multiple corporations in production today.
-
-
-
-## SwiftUI ##
-
-If you're using this with SwiftUI, you can also `import RectangleTools_SwiftUI` to gain SwiftUI-specific rectangle tools!
-
-
-
