@@ -3,28 +3,20 @@ name: watchOS
 on: [pull_request]
 
 jobs:
-  build:
-
+  test:
+    runs-on: macos-latest
     timeout-minutes: 4
-    runs-on: macOS-latest
 
     steps:
-    - name: Set up Swift 6
-      uses: SwiftyLab/setup-swift@latest
-      with:
-        swift-version: '6.0'
-    
+    - name: Checkout code
+      uses: actions/checkout@v4
+            
     - name: Swift version
       run: swift --version
-      
-    - uses: actions/checkout@v3
-    
-    - name: Build
-      run: swift build
-    
-    - name: What schemes?
-      run: xcodebuild build test -list
     
     - name: Run watchOS tests
-      run: xcodebuild build test -destination 'name=Apple Watch Ultra 2 (49mm)' -scheme 'RectangleTools'
-
+      run: |
+        xcodebuild test \
+          -sdk watchsimulator \
+          -destination 'platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)' \
+          -scheme RectangleTools

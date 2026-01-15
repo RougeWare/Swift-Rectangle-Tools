@@ -3,28 +3,22 @@ name: iOS
 on: [pull_request]
 
 jobs:
-  build:
-
+  test:
     timeout-minutes: 6
     runs-on: macOS-latest
 
     steps:
-    - name: Set up Swift 6
-      uses: SwiftyLab/setup-swift@latest
-      with:
-        swift-version: '6.0'
-        
     - name: Swift version
       run: swift --version
     
-    - uses: actions/checkout@v3
-    
-    - name: Build
-      run: swift build
+    - uses: actions/checkout@v4
     
     - name: What schemes?
       run: xcodebuild build test -list
     
     - name: Run iOS tests
-      run: xcodebuild build test -destination 'name=iPhone 16' -scheme 'RectangleTools'
-
+      run: |
+        xcodebuild test \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 17' \
+          -scheme RectangleTools
