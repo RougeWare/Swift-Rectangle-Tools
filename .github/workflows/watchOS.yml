@@ -4,17 +4,15 @@ on: [pull_request]
 
 jobs:
   test:
+    runs-on: macos-latest
     timeout-minutes: 4
-    runs-on: macOS-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+            
     - name: Swift version
       run: swift --version
-      
-    - uses: actions/checkout@v4
-    
-    - name: What schemes?
-      run: xcodebuild build test -list
     
     - name: Run watchOS tests
       run: |
