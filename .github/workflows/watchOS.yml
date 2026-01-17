@@ -18,5 +18,5 @@ jobs:
       run: |
         xcodebuild test \
           -sdk watchsimulator \
-          -destination 'platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)' \
+          -destination 'platform=watchOS Simulator,name=Apple Watch Ultra 3 (49mm)' \
           -scheme RectangleTools
