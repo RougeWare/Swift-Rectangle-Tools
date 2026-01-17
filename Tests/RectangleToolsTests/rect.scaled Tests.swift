@@ -43,6 +43,15 @@ final class rect_scaled_Tests: XCTestCase {
         XCTAssertTrue(testScaling(.fit,.upOrDown,  .wide__18_12, within: .extremelyWide__960_12, expect: .init(width: 18, height: 12)))
         XCTAssertTrue(testScaling(.fit,.upOrDown,  .wide__18_12, within: .veryWide__96_12,       expect: .init(width: 18, height: 12)))
         XCTAssertTrue(testScaling(.fit,.upOrDown,  .wide__18_12, within: .wide__18_12,           expect: .init(width: 18, height: 12)))
+        
+        
+        testScaling(.fit,.down,  .wide__18_12, by: 0.4, expect: .init(width: 7.2, height: 4.8))
+        testScaling(.fit,.down,  .wide__18_12, by: 1,   expect: .init(width: 18, height: 12))
+        testScaling(.fit,.down,  .wide__18_12, by: 3,   expect: .init(width: 18, height: 12))
+        
+        testScaling(.fit,.upOrDown,  .wide__18_12, by: 0.4, expect: .init(width: 7.2, height: 4.8))
+        testScaling(.fit,.upOrDown,  .wide__18_12, by: 1,   expect: .init(width: 18, height: 12))
+        testScaling(.fit,.upOrDown,  .wide__18_12, by: 3,   expect: .init(width: 54, height: 36))
     }
     
     
@@ -536,6 +545,256 @@ final class rect_scaled_Tests: XCTestCase {
     }
     
     
+    // MARK: - Stretch
+    
+    
+    
+    // MARK: Stretch wide in ___
+    
+    func test_stretchWideRectInWideContainer() {
+        // When stretching, the child should match the parent exactly regardless of aspect ratio, centered.
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .extremelyWide__960_12, expect: .veryWide__96_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .extremelyWide__960_12, expect: .wide__18_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .veryWide__96_12, expect: .wide__18_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+    }
+    
+    
+    func test_stretchWideRectInSquareContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .squareMedium__96_96, expect: .veryWide__96_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .squareMedium__96_96, expect: .veryWide__96_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .squareMedium__96_96, expect: .wide__18_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .squareLarge__960_960, expect: .extremelyWide__960_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .squareLarge__960_960, expect: .veryWide__96_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .squareLarge__960_960, expect: .wide__18_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+    }
+    
+    
+    func test_stretchWideRectInTallContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .extremelyTall__12_960, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .extremelyTall__12_960, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .extremelyTall__12_960, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .veryTall__12_96, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .veryTall__12_96, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .veryTall__12_96, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyWide__960_12, within: .tall__12_18, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryWide__96_12,       within: .tall__12_18, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .wide__18_12,           within: .tall__12_18, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyWide__960_12, within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryWide__96_12,       within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .wide__18_12,           within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+    }
+    
+    
+    // MARK: Stretch square in ___
+    
+    func test_stretchSquareRectInWideContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .extremelyWide__960_12, expect: .squareSmall__12_12,    aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .extremelyWide__960_12, expect: .veryWide__96_12,       aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .veryWide__96_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .veryWide__96_12, expect: .veryWide__96_12,    aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .veryWide__96_12, expect: .veryWide__96_12,    aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .wide__18_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .wide__18_12, expect: .wide__18_12,        aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .wide__18_12, expect: .wide__18_12,        aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+    }
+    
+    
+    func test_stretchSquareRectInSquareContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .squareMedium__96_96, expect: .squareSmall__12_12,  aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .squareLarge__960_960, expect: .squareSmall__12_12,   aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .squareLarge__960_960, expect: .squareMedium__96_96,  aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+    }
+    
+    
+    func test_stretchSquareRectInTallContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .extremelyTall__12_960, expect: .squareSmall__12_12,    aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .extremelyTall__12_960, expect: .veryTall__12_96,       aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .veryTall__12_96, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareSmall__12_12,   within: .tall__12_18, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareMedium__96_96,  within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .squareLarge__960_960, within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareSmall__12_12,   within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareMedium__96_96,  within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .squareLarge__960_960, within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+    }
+    
+    
+    // MARK: Stretch tall in ___
+    
+    func test_stretchTallRectInWideContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .extremelyWide__960_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .extremelyWide__960_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .extremelyWide__960_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .veryWide__96_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .veryWide__96_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .veryWide__96_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .wide__18_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .wide__18_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .wide__18_12, expect: .squareSmall__12_12, aspectRatioExpectation: .none))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .extremelyWide__960_12, expect: .extremelyWide__960_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .veryWide__96_12, expect: .veryWide__96_12, aspectRatioExpectation: .sameAsParent))
+        
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .wide__18_12, expect: .wide__18_12, aspectRatioExpectation: .sameAsParent))
+    }
+
+    func test_stretchTallRectInSquareContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .squareMedium__96_96, expect: .veryTall__12_96, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .squareMedium__96_96, expect: .veryTall__12_96, aspectRatioExpectation: .none))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .squareMedium__96_96, expect: .tall__12_18,     aspectRatioExpectation: .sameAsOriginal))
+
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .squareLarge__960_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .squareLarge__960_960, expect: .veryTall__12_96,       aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .squareLarge__960_960, expect: .tall__12_18,           aspectRatioExpectation: .sameAsOriginal))
+
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .squareSmall__12_12, expect: .squareSmall__12_12, aspectRatioExpectation: .sameAsParent))
+
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .squareMedium__96_96, expect: .squareMedium__96_96, aspectRatioExpectation: .sameAsParent))
+
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .squareLarge__960_960, expect: .squareLarge__960_960, aspectRatioExpectation: .sameAsParent))
+    }
+
+    func test_stretchTallRectInTallContainer() {
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .extremelyTall__12_960, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsOriginal))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .extremelyTall__12_960, expect: .tall__12_18, aspectRatioExpectation: .sameAsOriginal))
+
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .veryTall__12_96, expect: .tall__12_18, aspectRatioExpectation: .sameAsOriginal))
+
+        XCTAssertTrue(testScaling(.stretch, .down,     .extremelyTall__12_960, within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .veryTall__12_96,       within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .down,     .tall__12_18,           within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .extremelyTall__12_960, expect: .extremelyTall__12_960, aspectRatioExpectation: .sameAsParent))
+
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .veryTall__12_96, expect: .veryTall__12_96, aspectRatioExpectation: .sameAsParent))
+
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .extremelyTall__12_960, within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .veryTall__12_96,       within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+        XCTAssertTrue(testScaling(.stretch, .upOrDown, .tall__12_18,           within: .tall__12_18, expect: .tall__12_18, aspectRatioExpectation: .sameAsParent))
+    }
     
     
     // MARK: - `allTests`
@@ -565,6 +824,18 @@ final class rect_scaled_Tests: XCTestCase {
         ("test_fillTallRectInTallContainer", test_fillTallRectInTallContainer),
         ("test_fillTallRectInSquareContainer", test_fillTallRectInSquareContainer),
         ("test_fillTallRectInWideContainer", test_fillTallRectInWideContainer),
+        
+        ("test_stretchWideRectInWideContainer", test_stretchWideRectInWideContainer),
+        ("test_stretchWideRectInSquareContainer", test_stretchWideRectInSquareContainer),
+        ("test_stretchWideRectInTallContainer", test_stretchWideRectInTallContainer),
+
+        ("test_stretchSquareRectInWideContainer", test_stretchSquareRectInWideContainer),
+        ("test_stretchSquareRectInSquareContainer", test_stretchSquareRectInSquareContainer),
+        ("test_stretchSquareRectInTallContainer", test_stretchSquareRectInTallContainer),
+
+        ("test_stretchTallRectInWideContainer", test_stretchTallRectInWideContainer),
+        ("test_stretchTallRectInSquareContainer", test_stretchTallRectInSquareContainer),
+        ("test_stretchTallRectInTallContainer", test_stretchTallRectInTallContainer),
     ]
 }
 
@@ -577,7 +848,9 @@ private func testScaling(
     _ child: CGSize,
     within parent: CGSize,
     expect: CGSize,
-    expectAspectRatioOfParent: Bool = false)
+    aspectRatioExpectation: AspectRatioExpectation? = .sameAsOriginal,
+    file: StaticString = #filePath,
+    line: UInt = #line)
 -> Bool {
     var allSucceeded = true
     
@@ -585,24 +858,52 @@ private func testScaling(
     let child = CGRect(origin: .random(), size: child)
     
     let scaled = child.scaled(within: parent, method: method, direction: direction)
-    XCTAssertEqual(scaled.width, expect.width, accuracy: .approximationTolerance)
-    XCTAssertEqual(scaled.height, expect.height, accuracy: .approximationTolerance)
+    XCTAssertEqual(scaled.width, expect.width, accuracy: .approximationTolerance, "Scaled width wasn't as expected", file: file, line: line)
+    XCTAssertEqual(scaled.height, expect.height, accuracy: .approximationTolerance, "Scaled height wasn't as expected", file: file, line: line)
     allSucceeded &&= scaled.size ≈≈ expect
     
-    if expectAspectRatioOfParent {
-        XCTAssertEqual(scaled.size.aspectRatio(), parent.size.aspectRatio(), accuracy: .approximationTolerance)
+    switch aspectRatioExpectation {
+    case .sameAsParent:
+        XCTAssertEqual(scaled.size.aspectRatio(), parent.size.aspectRatio(), accuracy: .approximationTolerance, "Scaled aspect ratio wasn't the same as the parent's", file: file, line: line)
         allSucceeded &&= scaled.size.aspectRatio() ≈≈ parent.size.aspectRatio()
-    }
-    else {
-        XCTAssertEqual(scaled.size.aspectRatio(), child.size.aspectRatio(), accuracy: .approximationTolerance)
+    
+    case .sameAsOriginal:
+        XCTAssertEqual(scaled.size.aspectRatio(), child.size.aspectRatio(), accuracy: .approximationTolerance, "Scaled aspect ratio shouldn't have changed", file: file, line: line)
         allSucceeded &&= scaled.size.aspectRatio() ≈≈ child.size.aspectRatio()
+        
+    case .none:
+        break
     }
     
-    XCTAssertEqual(scaled.midX, parent.midX, accuracy: .approximationTolerance)
-    XCTAssertEqual(scaled.midY, parent.midY, accuracy: .approximationTolerance)
+    XCTAssertEqual(scaled.midX, parent.midX, accuracy: .approximationTolerance, "Scaled center wasn't in the expected horizontal position", file: file, line: line)
+    XCTAssertEqual(scaled.midY, parent.midY, accuracy: .approximationTolerance, "Scaled center wasn't in the expected vertical position", file: file, line: line)
     allSucceeded &&= scaled.center ≈≈ parent.center
     
     return allSucceeded
+}
+
+
+
+@inline(__always)
+private func testScaling(
+    _ method: ScaleMethod,
+    _ direction: ScaleDirection,
+    _ originalSize: CGSize,
+    by multiplier: CGFloat,
+    expect: CGSize,
+    file: StaticString = #filePath,
+    line: UInt = #line)
+{
+    let originalRect = CGRect(origin: .random(), size: originalSize)
+    let scaledRect = originalRect.scalingEdges(by: multiplier, direction: direction)
+    XCTAssertEqual(scaledRect.width,  expect.width,      accuracy: .approximationTolerance, "Scaled rectangle width isn't as expected",    file: file, line: line)
+    XCTAssertEqual(scaledRect.height, expect.height,     accuracy: .approximationTolerance, "Scaled rectangle height isn't as expected",   file: file, line: line)
+    XCTAssertEqual(scaledRect.midX,   originalRect.midX, accuracy: .approximationTolerance, "Scaled rectangle center x isn't as expected", file: file, line: line)
+    XCTAssertEqual(scaledRect.midY,   originalRect.midY, accuracy: .approximationTolerance, "Scaled rectangle center y isn't as expected", file: file, line: line)
+    
+    let scaledSize = originalSize.scalingEdges(by: multiplier, direction: direction)
+    XCTAssertEqual(scaledSize.width,  expect.width,      accuracy: .approximationTolerance, "Scaled size width isn't as expected",    file: file, line: line)
+    XCTAssertEqual(scaledSize.height, expect.height,     accuracy: .approximationTolerance, "Scaled size height isn't as expected",   file: file, line: line)
 }
 
 
@@ -619,4 +920,11 @@ private extension CGPoint {
     static func random() -> Self {
         .init(x: .random(), y: .random())
     }
+}
+
+
+
+private enum AspectRatioExpectation {
+    case sameAsOriginal
+    case sameAsParent
 }
