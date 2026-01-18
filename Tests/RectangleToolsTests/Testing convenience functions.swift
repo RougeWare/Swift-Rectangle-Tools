@@ -10,6 +10,8 @@ import RectangleTools
 
 
 
+// MARK: - Semi-equality
+
 infix operator &&= : AssignmentPrecedence
 infix operator ≈≈ : ComparisonPrecedence
 
@@ -56,4 +58,33 @@ where Value: DualTwoDimensional,
 {
        lhs.firstDimensionPair ≈≈ rhs.firstDimensionPair
     && lhs.secondDimensionPair ≈≈ rhs.secondDimensionPair
+}
+
+
+
+// MARK: - Randomization
+
+
+
+extension CGFloat {
+    static func random() -> Self {
+        random(in: -1024...1024)
+    }
+}
+
+
+
+extension CGPoint {
+    static func random() -> Self {
+        .init(x: .random(), y: .random())
+    }
+}
+
+
+
+// MARK: - Enumerations
+
+enum AspectRatioExpectation {
+    case sameAsOriginal
+    case sameAsParent
 }
