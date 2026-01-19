@@ -308,6 +308,9 @@ public enum ScaleMethod {
     
     
     /// Discard the aspect ratio, and simply set the size to be the same as the parent's
+    ///
+    /// - When scaling direction is `.down`, then this might result in zero, two, or all four sides touching or passing parent sides.
+    /// - When scaling direction is `.upOrDown`, then all four sides will **always** touch parent sides.
     case stretch
 }
 
@@ -331,7 +334,7 @@ where Length: MultiplicativeArithmetic,
       Length: Comparable,
       Length: ExpressibleByIntegerLiteral
 {
-    /// Scales this within the given parent, using the given scaling method
+    /// Scales this within the given parent, using the given scaling method & direction
     ///
     /// - Parameters:
     ///    - parent:    The parent within which to scale this
@@ -421,9 +424,34 @@ where Length: MultiplicativeArithmetic,
             return scaleToMatchWidth()
             
         case .stretch:
-            return .init(measurementX: parent.measurementX,
-                         measurementY: parent.measurementY)
+            switch direction {
+            case .down:
+                return .init(measurementX: min(self.measurementX, parent.measurementX),
+                             measurementY: min(self.measurementY, parent.measurementY))
+                
+            case .upOrDown:
+                return .init(measurementX: parent.measurementX,
+                             measurementY: parent.measurementY)
+            }
         }
+    }
+    
+    
+    /// Scales this by the given multiplier, using the given scaling method & direction.
+    ///
+    /// The edges are scaled, not the area.
+    ///
+    /// - Parameters:
+    ///    - multiplier: Scales the outer dimensions of this by this amount. So a `2x2` scaled by `0.5` becomes a `1x1`, or scaled by `3.0` becomes a `6x6`.
+    ///    - direction:  _optional_ - Which direction to scale this rectangle. Defaults to `.down`
+    ///
+    /// - Returns: A scaled version of this rectangle, relative to the given parent
+    func scaling(dimensionsBy multiplier: Length, direction: ScaleDirection = .down) -> Self {
+        scaled(
+            within: self * multiplier,
+            method: .stretch,
+            direction: direction
+        )
     }
 }
 
@@ -436,7 +464,7 @@ where Length: MultiplicativeArithmetic,
       Length: ExpressibleByIntegerLiteral
 {
     
-    /// Scales this rectangle within the given parent, using the given scaling method
+    /// Scales this rectangle within the given parent, using the given scaling method & direction
     ///
     /// - Parameters:
     ///    - parent:    The parent rectangle within which to scale this rectangle
@@ -453,6 +481,27 @@ where Length: MultiplicativeArithmetic,
             size: size.scaled(within: parent.size, method: method, direction: direction)
         )
             .centered(within: parent)
+    }
+    
+    
+    /// Scales this rectangle by the given multiplier, using the given scaling method & direction
+    ///
+    /// The resulting rectangle's center point is the same as this one's.
+    ///
+    /// The edges are scaled, not the area.
+    ///
+    /// - Parameters:
+    ///    - multiplier: Scales the outer dimensions of the rectangle by this amount. So a `2x2` rectangle scaled by `0.5` becomes a `1x1` rectangle, or scaled by `3.0` becomes a `6x6` (assuming the direction allows that).
+    ///    - direction:  _optional_ - Which direction to scale this rectangle. Defaults to `.down`
+    ///
+    /// - Returns: A scaled version of this rectangle, relative to the given parent
+    func scaling(dimensionsBy multiplier: Length, direction: ScaleDirection = .down) -> Self {
+        scaled(
+            within: Self(origin: .zero, size: size * multiplier)
+                .centered(within: self),
+            method: .stretch,
+            direction: direction
+        )
     }
     
     
