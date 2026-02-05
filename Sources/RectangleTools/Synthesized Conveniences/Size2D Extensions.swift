@@ -19,6 +19,24 @@ public extension Size2D {
     init(_ other: Self) {
         self.init(width: other.width, height: other.height)
     }
+    
+    
+    /// Initializes a size where both dimensions are the same length
+    ///
+    /// - Parameter length: The width, and the height, of the new size
+    @inline(__always)
+    init(square length: Length) {
+        self.init(width: length, height: length)
+    }
+    
+    
+    /// A size where both dimensions are the same length
+    ///
+    /// - Parameter length: The width, and the height, of the returned size
+    @inline(__always)
+    static func square(_ length: Length) -> Self {
+        .init(square: length)
+    }
 }
 
 
