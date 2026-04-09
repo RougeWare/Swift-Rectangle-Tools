@@ -1,16 +1,15 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "MultiplicativeArithmetic",
-        "repositoryURL": "https://github.com/RougeWare/Swift-MultiplicativeArithmetic.git",
-        "state": {
-          "branch": null,
-          "revision": "c45199953ac680dfdcaefff5f8743f1126fe8a4e",
-          "version": "1.4.1"
-        }
+  "originHash" : "905826789c96f44101a947765c14433357abd543f3b6e4f83bbab415de5eebff",
+  "pins" : [
+    {
+      "identity" : "swift-multiplicativearithmetic",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RougeWare/Swift-MultiplicativeArithmetic.git",
+      "state" : {
+        "revision" : "c45199953ac680dfdcaefff5f8743f1126fe8a4e",
+        "version" : "2.0.1"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 3
 }
