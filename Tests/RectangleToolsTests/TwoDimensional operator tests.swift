@@ -6,7 +6,9 @@
 //
 
 import Testing
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 
 import RectangleTools
 
