@@ -1,13 +1,13 @@
 {
-  "originHash" : "905826789c96f44101a947765c14433357abd543f3b6e4f83bbab415de5eebff",
+  "originHash" : "aa4f4a21f2d1b260d527a765d83098d44a66f1b8a7ce86d3728fd6339ee2e658",
   "pins" : [
     {
       "identity" : "swift-multiplicativearithmetic",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RougeWare/Swift-MultiplicativeArithmetic.git",
       "state" : {
-        "revision" : "c45199953ac680dfdcaefff5f8743f1126fe8a4e",
-        "version" : "2.0.1"
+        "revision" : "960ccc54d6c876983c6658d4aca637b4685e9841",
+        "version" : "2.1.0"
       }
     }
   ],
