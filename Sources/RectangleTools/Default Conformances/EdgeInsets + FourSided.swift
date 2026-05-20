@@ -28,6 +28,38 @@
 
     public typealias NativeEdgeInsets = NSEdgeInsets
     public typealias UserInterfaceLayoutDirection = NSUserInterfaceLayoutDirection
+#else
+    import Foundation
+    
+    public typealias NativeEdgeInsets = EdgeInsets
+    
+    
+    
+    /// Represents the amount by which something is inset from the edge of something else
+    /// 
+    /// This includes presumptive automatic localization by using leading/trailing sides instead of left/right.
+    public struct EdgeInsets<Length> {
+        public var top: Length
+        public var leading: Length
+        public var bottom: Length
+        public var trailing: Length
+        
+        
+        public init(top: Length, leading: Length, bottom: Length, trailing: Length) {
+            self.top = top
+            self.leading = leading
+            self.bottom = bottom
+            self.trailing = trailing
+        }
+    }
+    
+    
+    
+    /// The layout direction of the user interface, corresponding to the reading direction of the current language.
+    public enum UserInterfaceLayoutDirection {
+        case leftToRight
+        case rightToLeft
+    }
 #endif
 
 
@@ -35,9 +67,9 @@
 @available(watchOS 2.1, *)
 extension NativeEdgeInsets: FourSidedAbsolute {
     
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) || !(canImport(WatchKit) || canImport(UIKit) || canImport(AppKit))
     
-    public init(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
+    public init(top: Length, right: Length, bottom: Length, left: Length) {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight:
             self.init(top: top, leading: left, bottom: bottom, trailing: right)
@@ -52,12 +84,12 @@ extension NativeEdgeInsets: FourSidedAbsolute {
     }
     
     
-    public init(top: CGFloat, trailing: CGFloat, bottom: CGFloat, leading: CGFloat) {
+    public init(top: Length, trailing: Length, bottom: Length, leading: Length) {
         self.init(top: top, leading: leading, bottom: bottom, trailing: trailing)
     }
     
     
-    public var left: CGFloat {
+    public var left: Length {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight: return leading
         case .rightToLeft: return trailing
@@ -69,7 +101,7 @@ extension NativeEdgeInsets: FourSidedAbsolute {
     }
     
     
-    public var right: CGFloat {
+    public var right: Length {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight: return trailing
         case .rightToLeft: return leading
@@ -81,16 +113,16 @@ extension NativeEdgeInsets: FourSidedAbsolute {
     }
     
     
-    #else
+    #elseif canImport(WatchKit) || canImport(UIKit) || canImport(AppKit)
     
     
     @available(watchOS 2.1, *)
-    public init(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
+    public init(top: Length, right: Length, bottom: Length, left: Length) {
         self.init(top: top, left: left, bottom: bottom, right: right)
     }
     
     
-    public init(top: CGFloat, trailing: CGFloat, bottom: CGFloat, leading: CGFloat) {
+    public init(top: Length, trailing: Length, bottom: Length, leading: Length) {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight:
             self.init(top: top, right: trailing, bottom: bottom, left: leading)
@@ -109,11 +141,11 @@ extension NativeEdgeInsets: FourSidedAbsolute {
 
 
 
-#if !canImport(SwiftUI)
+#if !canImport(SwiftUI) && (canImport(WatchKit) || canImport(UIKit) || canImport(AppKit))
 @available(watchOS 2.1, *)
 public extension NativeEdgeInsets {
     /// The value of whichever edge inset is leading in the current app's UI direction
-    var leading: CGFloat {
+    var leading: Length {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight: return left
         case .rightToLeft: return right
@@ -125,7 +157,7 @@ public extension NativeEdgeInsets {
     
     
     /// The value of whichever edge inset is trailing in the current app's UI direction
-    var trailing: CGFloat {
+    var trailing: Length {
         switch UserInterfaceLayoutDirection.current {
         case .leftToRight: return right
         case .rightToLeft: return left
@@ -163,6 +195,9 @@ public extension UserInterfaceLayoutDirection {
             let legacyCurrent = UIApplication.shared.userInterfaceLayoutDirection
         #elseif canImport(AppKit)
             let legacyCurrent = NSApp?.userInterfaceLayoutDirection ?? .leftToRight
+        #else
+            // TODO: Figure this out for common other platforms
+            let legacyCurrent = UserInterfaceLayoutDirection.leftToRight
         #endif
         
         #if canImport(SwiftUI)
