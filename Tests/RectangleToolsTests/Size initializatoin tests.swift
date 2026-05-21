@@ -5,7 +5,9 @@
 //  Created by Ky on 2026-02-03.
 //
 
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 import Testing
 
 import RectangleTools

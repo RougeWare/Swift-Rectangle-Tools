@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 #if canImport(CoreImage)
 import CoreImage
 #endif
