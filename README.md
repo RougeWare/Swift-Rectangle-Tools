@@ -5,7 +5,7 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRougeWare%2FSwift-Rectangle-Tools%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/RougeWare/Swift-Rectangle-Tools)
 [![Swift Package Manager](https://img.shields.io/badge/SwiftPM-compatible-orange?logo=swift&logoColor=white)](https://swift.org/package-manager/)
 [![Fair License](https://img.shields.io/badge/License-Fair-green)](LICENSE.txt)
-![](https://img.shields.io/github/release-date/RougeWare/Swift-RectangleTools?display_date=published_at&label=Last%20updated)
+![](https://img.shields.io/github/release-date/RougeWare/Swift-Rectangle-Tools?display_date=published_at&label=Last%20updated)
 
 A set of Swift utilities for dealing with rectangles, including a way to generically build your own!
 
